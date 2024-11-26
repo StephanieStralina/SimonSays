@@ -11,11 +11,18 @@ let playerArr;
 
 
 /*----- cached elements  -----*/
-const buttons;
-const turnEl;
-const messageEl;
+// const buttons;
+// const turnEl;
+// const messageEl;
 
 /*----- event listeners -----*/
 //button clicks
 
 /*----- functions -----*/
+init();
+
+function init(){
+    puppycatArr = [];
+    playerArr = [];
+    rounds = 0;
+}
