@@ -1,0 +1,36 @@
+Puppycat Says 
+
+0) Player clicks "How to Play" or "Game on!" buttons
+    0.1) How to Play - Modal with instructions on how to play Simon Says
+    0.2) Game on - Game begins
+    0.3) Remove buttons and Render game "board"
+            Paw light board
+            Rounds successfully completed counter
+            Puppy Cat Says... message at top
+1) Generates and play random pattern of lights noise
+    1.1) Define const for Puppycat pattern array
+    1.2) Add 5 random numbers (between 1-4) to start
+    1.3) Play series of noises & visuals denoting the pattern the player should match (audio files)
+2) Players click buttons (or use keys) to match the pattern of noises they heard (Your turn! message)
+    2.1) Define const for Player Pattern array
+    2.2) WHILE it's player's turn, add clicks/keystrokes to their array compare with Puppycat 
+        array FOR EACH selection (exit as soon as a wrong selection is made)
+         2.2.1) As player clicks/keys - play the noise and light up as they click
+    2.3) Message displays: 
+            IF successful - display "You did it!" modal/temp pop up
+            If unsuccessful - remove screen "board", replace with "Play again?" button
+    2.4) Update number of rounds completed successfully
+    2.5) Reset player array back to empty string
+3) Computer adds another noise/light to the existing Puppycat pattern for player to then match
+    3.1) Push another random number (between 1-4) to Puppycat array
+    3.2) Play Puppcat noise/visual sequence
+    3.3) Capture and evaluate player attempt to match
+4) Eventually after __ amount of rounds player loses
+    4.1) "Play again?" button
+    4.2) Reset both player and Puppycat arrays
+
+Icebox features: 
+    Get a hint (max 3)
+    High score (highest number of rounds complete)
+    Show player selections/let them alter selections
+    Choose a different character to play against (Sticky, TempBot, Pretty Patrick, etc.)
