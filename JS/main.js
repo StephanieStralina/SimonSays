@@ -1,8 +1,15 @@
 /*----- constants -----*/
-const Audio1 = '';
-const Audio2 = '';
-const Audio3 = '';
-const Audio4 = '';
+const Audio1 = new Audio('https://dl.dropbox.com/scl/fi/ua8v1pq3r6btv11do5xbl/puppycat4.MP3?rlkey=xb169dsjmye0a736j40y8ldmd&st=fqii7oyd&dl=0');
+const Audio2 = new Audio('https://dl.dropbox.com/scl/fi/ftmj9zqar341tuks94bwt/puppycat2.MP3?rlkey=c5nkvf39ymd360ovodqrg1od9&st=xdq7j2rg&dl=0');
+const Audio3 = new Audio('https://dl.dropbox.com/scl/fi/hg7h0k9bbyhghtemhnn4u/puppycat3.MP3?rlkey=gvz13ta228rqmi3i2mzktck9a&st=wt3wb3x1&dl=0');
+const Audio4 = new Audio('https://dl.dropbox.com/scl/fi/ua8v1pq3r6btv11do5xbl/puppycat4.MP3?rlkey=xb169dsjmye0a736j40y8ldmd&st=4cmddnak&dl=0');
+
+const gameButtons = {
+    b1: {},
+    b2: {},
+    b3: {},
+    b4: {},
+}
 
 /*----- state variables -----*/
 let rounds;
@@ -21,7 +28,7 @@ const controlButtons = document.getElementById('control-buttons');
 /*----- event listeners -----*/
 //button clicks
 startButton.addEventListener('click', init);
-
+document.querySelector('#board').addEventListener('click', handleMove);
 
 /*----- functions -----*/
 function init() {
@@ -57,10 +64,11 @@ function renderMessage() {
 }
 
 
-
-
-
-function handleMove() {
+function handleMove(evt) {
    //if clicked, make sound/color and add to array 
    //for each move, check against puppycat array
+   if (evt.target.id === 'board') return;
+   //handler for if game hasn't starter and/or don't show elements until game starts
+   if (rounds === undefined) return;
+   console.log(evt.target.id);
 }
