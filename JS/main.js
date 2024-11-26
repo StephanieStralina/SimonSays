@@ -16,7 +16,6 @@ const turnEl;
 const messageEl;
 
 /*----- event listeners -----*/
-
+//button clicks
 
 /*----- functions -----*/
-
