@@ -14,14 +14,17 @@ let playerArr;
 // const buttons;
 // const turnEl;
 // const messageEl;
+const startButton = document.getElementById('start-game');
+const controlButtons = document.getElementById('control-buttons');
 
 /*----- event listeners -----*/
 //button clicks
+startButton.addEventListener('click', init);
+
 
 /*----- functions -----*/
-init();
-
 function init(){
+    controlButtons.style.visibility = 'hidden';
     puppycatArr = [];
     playerArr = [];
     rounds = 0;
