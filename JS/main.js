@@ -5,10 +5,10 @@ const Audio3 = new Audio('https://dl.dropbox.com/scl/fi/hg7h0k9bbyhghtemhnn4u/pu
 const Audio4 = new Audio('https://dl.dropbox.com/scl/fi/ua8v1pq3r6btv11do5xbl/puppycat4.MP3?rlkey=xb169dsjmye0a736j40y8ldmd&st=4cmddnak&dl=0');
 
 const gameButtons = {
-    b1: {},
-    b2: {},
-    b3: {},
-    b4: {},
+    1: {},
+    2: {},
+    3: {},
+    4: {},
 }
 
 /*----- state variables -----*/
@@ -48,10 +48,14 @@ function render() {
 function renderComputerMoves() {
     //if array is empty, add 5
     //else add 1
+    if (computerArr.length === 0) {
+        console.log('computer array empty');
+    }
 }
 
 function renderComputerPlay() {
     //Play sequence of sounds/colors for puppy cat choices
+        //for each item in array, handleMove sounds/colors
     //Player turn
 }
 
@@ -70,5 +74,19 @@ function handleMove(evt) {
    if (evt.target.id === 'board') return;
    //handler for if game hasn't starter and/or don't show elements until game starts
    if (rounds === undefined) return;
-   console.log(evt.target.id);
+   //Switch Statement
+   switch (evt.target.id) {
+    case 'b1': 
+        Audio1.play();
+        break;
+    case 'b2':
+        Audio2.play();
+        break;
+    case 'b3':
+        Audio3.play();
+        break;
+    case 'b4':
+        Audio4.play();
+        break;
+   }
 }
