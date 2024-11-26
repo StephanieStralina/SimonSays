@@ -30,9 +30,11 @@ h1 {
     height: 8vmin;
     width: 8vmin;
     border-radius: 50%;
+    border: none;
     display: flex;
     margin-top:4vmin;
   }
+
 
   #control-buttons {
     display: flex;
@@ -66,4 +68,11 @@ h1 {
     font-size: 1.75vmin;
     padding: 1.5vmin 2vmin;
     visibility: hidden;
+  }
+
+  #b1:active, 
+  #b2:active, 
+  #b3:active, 
+  #b4:active {
+    background-color: red;
   }
