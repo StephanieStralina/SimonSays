@@ -52,18 +52,38 @@ function renderComputerMoves() {
 }
 
 function renderComputerPlay() {
-    for (let i = 0; i < computerArr.length; i++) {
-        setTimeout(() => {
-            const computerClick = document.getElementById(computerArr[i]);
-            computerClick.click();
-            if (i === computerArr.length - 1) {
-                turn = 'player';
-                console.log('its the players turn now!');
-            }
-        }, 950 * i);
+    let i = 0;
+    function playNext() {
+        if (i >= computerArr.length) {
+            turn = 'player';
+            return;
+        }
+
+        const computerClick = document.getElementById(computerArr[i]);
+        const audio = playCompAudio(computerClick.id);
+        computerClick.classList.add('active'); //Troubleshoot, maybe transition?
+        audio.play();
+        setTimeout(() => computerClick.classList.remove('active'), 2000);
+
+        audio.onended = () => {
+            i++;
+            playNext();
+        };
     }
-    //get rid of player pointer, then give it back?
+    
+    playNext(); 
 }
+
+function playCompAudio(compClickId) {
+    switch (compClickId) {
+        case 'b1': return Audio1;
+        case 'b2': return Audio2;
+        case 'b3': return Audio3;
+        case 'b4': return Audio4;
+    }
+}
+
+
 
 function renderMessage() {
     //if player moves = puppycat moves
@@ -75,9 +95,9 @@ function renderMessage() {
 
 
 function handlePlayerMove(evt) {
+    let clickedBtn = evt.target.id;
    //if clicked, make sound/color and add to array 
    //for each move, check against puppycat array
-   let clickedBtn = evt.target.id;
    //guard for clicking outside button
    if (clickedBtn === 'board') return;
    //guard for if game hasn't starter and/or don't show elements until game starts
@@ -96,7 +116,7 @@ function handlePlayerMove(evt) {
     case 'b4':
         Audio4.play();
         break;
-   }
+    }
     if (turn === 'player') {
     playerArr.push(clickedBtn);
     compareArrays();
@@ -108,6 +128,8 @@ function handlePlayerMove(evt) {
     }
     }
 }
+
+
 
 function compareArrays() {
     console.log(computerArr);
