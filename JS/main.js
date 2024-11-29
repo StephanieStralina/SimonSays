@@ -9,10 +9,8 @@ const gameButtons = [1, 2, 3, 4,];
 /*----- state variables -----*/
 let rounds;
 let computerArr;
-let computerSoundArr;
 let playerArr;
 let turn;
-
 
 /*----- cached elements  -----*/
 // const buttons;
@@ -29,12 +27,10 @@ startButton.addEventListener('click', init);
 document.querySelector('#board').addEventListener('click', handlePlayerMove);
 //audio played, 'ended' then run the push to array?
 
-
 /*----- functions -----*/
 function init() {
     controlButtons.style.display = 'none';
     computerArr = [];
-    computerSoundArr = [];
     playerArr = [];
     rounds = 0;
     turn = 'computer';
@@ -42,7 +38,7 @@ function init() {
 }
 
 function render() {
-    while (computerArr.length < 8) {    
+    while (computerArr.length < 4) {    
         renderComputerMoves();
     }
     renderComputerMoves();
@@ -56,14 +52,17 @@ function renderComputerMoves() {
 }
 
 function renderComputerPlay() {
-    for (let i = 0; i< computerArr.length; i++){
+    for (let i = 0; i < computerArr.length; i++) {
         setTimeout(() => {
-        const computerClick = document.getElementById(computerArr[i]);
-        computerClick.click();
-        }, 900*i);
-    };
+            const computerClick = document.getElementById(computerArr[i]);
+            computerClick.click();
+            if (i === computerArr.length - 1) {
+                turn = 'player';
+                console.log('its the players turn now!');
+            }
+        }, 925 * i);
+    }
     //Player turn
-    turn = 'player';
     //get rid of player pointer, then give it back
 }
 
@@ -72,7 +71,7 @@ function renderMessage() {
         //puppycat turn
     //if player move != puppy cat
         //Display lose message
-        //show replay section button    
+        //show replay section button   
 }
 
 
@@ -80,11 +79,10 @@ function handlePlayerMove(evt) {
    //if clicked, make sound/color and add to array 
    //for each move, check against puppycat array
    let clickedBtn = evt.target.id;
-
+   //guard for clicking outside button
    if (clickedBtn === 'board') return;
-   //handler for if game hasn't starter and/or don't show elements until game starts
+   //guard for if game hasn't starter and/or don't show elements until game starts
    if (playerArr === undefined) return;
-   console.log(clickedBtn);
    //Switch Statement for sound
    switch (clickedBtn) {
     case 'b1': 
@@ -100,13 +98,15 @@ function handlePlayerMove(evt) {
         Audio4.play();
         break;
    }
-    if (turn === 'player'){
+    if (turn === 'player') {
     playerArr.push(clickedBtn);
+    compareArrays();
     }
 }
 
-// function compareArrays() {
-//
-//}
+function compareArrays() {
+    console.log(computerArr);
+    console.log(playerArr);
+}
 
 
