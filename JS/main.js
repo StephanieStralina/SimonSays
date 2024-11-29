@@ -8,7 +8,8 @@ const gameButtons = [1, 2, 3, 4,];
 
 /*----- state variables -----*/
 let rounds;
-let puppycatArr;
+let computerArr;
+let computerSoundArr;
 let playerArr;
 let turn;
 
@@ -25,13 +26,15 @@ const controlButtons = document.getElementById('control-buttons');
 /*----- event listeners -----*/
 //button clicks
 startButton.addEventListener('click', init);
-document.querySelector('#board').addEventListener('click', handleMove);
+document.querySelector('#board').addEventListener('click', handlePlayerMove);
+//audio played, 'ended' then run the push to array?
 
 
 /*----- functions -----*/
 function init() {
     controlButtons.style.display = 'none';
     computerArr = [];
+    computerSoundArr = [];
     playerArr = [];
     rounds = 0;
     turn = 'computer';
@@ -39,7 +42,7 @@ function init() {
 }
 
 function render() {
-    while (computerArr.length < 4) {    
+    while (computerArr.length < 8) {    
         renderComputerMoves();
     }
     renderComputerMoves();
@@ -53,14 +56,15 @@ function renderComputerMoves() {
 }
 
 function renderComputerPlay() {
-    //Play sequence of sounds/colors for puppy cat choices
-        //for each item in array, handleMove sounds/colors
-    //Player turn
-    computerArr.forEach(id => {
-        const computerClick = document.getElementById(id);
+    for (let i = 0; i< computerArr.length; i++){
+        setTimeout(() => {
+        const computerClick = document.getElementById(computerArr[i]);
         computerClick.click();
-    });
+        }, 900*i);
+    };
+    //Player turn
     turn = 'player';
+    //get rid of player pointer, then give it back
 }
 
 function renderMessage() {
@@ -72,10 +76,11 @@ function renderMessage() {
 }
 
 
-function handleMove(evt) {
+function handlePlayerMove(evt) {
    //if clicked, make sound/color and add to array 
    //for each move, check against puppycat array
    let clickedBtn = evt.target.id;
+
    if (clickedBtn === 'board') return;
    //handler for if game hasn't starter and/or don't show elements until game starts
    if (playerArr === undefined) return;
@@ -95,13 +100,13 @@ function handleMove(evt) {
         Audio4.play();
         break;
    }
-   // push id to player array
     if (turn === 'player'){
     playerArr.push(clickedBtn);
-    //compare for computer array
     }
 }
 
 // function compareArrays() {
 //
 //}
+
+
