@@ -60,10 +60,9 @@ function renderComputerPlay() {
                 turn = 'player';
                 console.log('its the players turn now!');
             }
-        }, 925 * i);
+        }, 950 * i);
     }
-    //Player turn
-    //get rid of player pointer, then give it back
+    //get rid of player pointer, then give it back?
 }
 
 function renderMessage() {
@@ -101,6 +100,12 @@ function handlePlayerMove(evt) {
     if (turn === 'player') {
     playerArr.push(clickedBtn);
     compareArrays();
+    if (playerArr.length === computerArr.length) {
+        playerArr = [];
+        turn = 'computer';
+        console.log('computers turn now');
+        render();
+    }
     }
 }
 
