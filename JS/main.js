@@ -13,21 +13,20 @@ let playerArr;
 let turn;
 
 /*----- cached elements  -----*/
-// const buttons;
-// const turnEl;
 const messageEl = document.getElementById('turn-display');
 const startButton = document.getElementById('start-game');
 const howButton = document.getElementById('how-to-play');
 const controlButtons = document.getElementById('control-buttons');
 const replayButton = document.getElementById('replay-button');
+//add rounds display
 // const btnSpans = document.getElementsByClassName('choice-button');
 
 /*----- event listeners -----*/
-//button clicks
 startButton.addEventListener('click', init);
 document.querySelector('#board').addEventListener('click', handlePlayerMove);
+//add keyboard strokes as clicks?
 replayButton.addEventListener('click', init);
-//audio played, 'ended' then run the push to array?
+
 
 /*----- functions -----*/
 function init() {
@@ -56,6 +55,7 @@ function renderComputerMoves() {
     computerArr.push(`b${btnIdx}`);
 }
 
+//Recursive loop
 function renderCompSound() {
     let i = 0;
     function playNext() {
@@ -78,7 +78,6 @@ function renderCompSound() {
             playNext();
         };
     }
-
     playNext(); 
 }
 
@@ -92,41 +91,42 @@ function playAudioChoice(compClickId) {
 }
 
 function handlePlayerMove(evt) {
-    let clickedBtn = evt.target.id;
+   let clickedBtn = evt.target.id;
    //guard for clicking outside button
    if (clickedBtn === 'board') return;
    //guard for if game hasn't starter and/or don't show elements until game starts
    if (playerArr === undefined) return;
-   //Switch Statement for sound
-    if (turn === 'player') {
-        const noise = playAudioChoice(clickedBtn);
-        noise.play();
-        noise.onended = () => {
+
+   if (turn === 'player') {
+        const playerAudio = playAudioChoice(clickedBtn);
+        playerAudio.play();
+        playerAudio.onended = () => {
             playerArr.push(clickedBtn);
             compareArrays();
-        if (compareArrays() === true && playerArr.length === computerArr.length) {
-            playerArr = [];
-            document.getElementById("board").classList.add("disabled");
-            document.getElementById("body").classList.add("wrapper");
-            console.log('computers turn now');
-            setTimeout(()=>{
-            turn = 'computer';
-            render();
-        }, 1500);
-        } else if (compareArrays() !== true) {
-            turn = 'null';
-            renderMessage();
+            if (compareArrays() === true && playerArr.length === computerArr.length) {
+                playerArr = [];
+                document.getElementById("board").classList.add("disabled");
+                document.getElementById("body").classList.add("wrapper");
+                console.log('computers turn now');
+                setTimeout(()=>{
+                turn = 'computer';
+                render();
+            }, 1500);
+            } else if (compareArrays() !== true) {
+                turn = 'null';
+                renderMessage();
+            }
         }
-    };
-}}
+    }
+}
 
 function compareArrays() {
     for (let i = 0; i < playerArr.length; i++){
         if (playerArr[i] !== computerArr[i]) {
-            return false; // Mismatch found
+            return false;
         }
     }
-    return true; // All moves match so far
+    return true;
 }
 
 function renderMessage() {
