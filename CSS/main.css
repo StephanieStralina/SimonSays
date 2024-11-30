@@ -76,3 +76,7 @@ h1 {
   #b4:active {
     background-color: red;
   }
+
+#activeClick {
+    background-color: red;
+}

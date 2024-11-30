@@ -61,9 +61,9 @@ function renderCompSound() {
 
         const computerClick = document.getElementById(computerArr[i]);
         const compSound = playCompAudio(computerClick.id);
-        computerClick.classList.add('active'); //Troubleshoot, maybe transition?
+        computerClick.style.backgroundColor = 'red';
         compSound.play();
-        setTimeout(() => computerClick.classList.remove('active'), 2000);
+        setTimeout(() => computerClick.style.backgroundColor = '', 500);
 
         compSound.onended = () => {
             i++;
