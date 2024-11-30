@@ -19,6 +19,7 @@ const messageEl = document.getElementById('turn-display');
 const startButton = document.getElementById('start-game');
 const howButton = document.getElementById('how-to-play');
 const controlButtons = document.getElementById('control-buttons');
+const replayButton = document.getElementById('replay-button');
 // const btnSpans = document.getElementsByClassName('choice-button');
 
 /*----- event listeners -----*/
@@ -30,6 +31,8 @@ document.querySelector('#board').addEventListener('click', handlePlayerMove);
 /*----- functions -----*/
 function init() {
     controlButtons.style.display = 'none';
+    document.getElementById("board").classList.add("disabled");
+    document.getElementById("body").classList.add("wrapper");
     computerArr = [];
     playerArr = [];
     rounds = 0;
@@ -56,12 +59,14 @@ function renderCompSound() {
     function playNext() {
         if (i >= computerArr.length) {
             turn = 'player';
+            document.getElementById("board").classList.remove("disabled");
+            document.getElementById("body").classList.remove("wrapper");
             renderMessage();
             return;
         }
 
         const computerClick = document.getElementById(computerArr[i]);
-        const compSound = playCompAudio(computerClick.id);
+        const compSound = playAudioChoice(computerClick.id);
         computerClick.style.backgroundColor = 'red';
         compSound.play();
         setTimeout(() => computerClick.style.backgroundColor = '', 500);
@@ -75,65 +80,60 @@ function renderCompSound() {
     playNext(); 
 }
 
-
-function renderMessage() {
-    if (turn === 'computer') {
-        messageEl.innerText = `It's PuppyCat's Turn!`;
-    } else if (turn === 'player') {
-        messageEl.innerText = `It's Your Turn!`;
+function playAudioChoice(compClickId) {
+    switch (compClickId) {
+        case 'b1': return Audio1;
+        case 'b2': return Audio2;
+        case 'b3': return Audio3;
+        case 'b4': return Audio4;
     }
 }
 
-
 function handlePlayerMove(evt) {
     let clickedBtn = evt.target.id;
-   //if clicked, make sound/color and add to array 
-   //for each move, check against puppycat array
    //guard for clicking outside button
    if (clickedBtn === 'board') return;
    //guard for if game hasn't starter and/or don't show elements until game starts
    if (playerArr === undefined) return;
    //Switch Statement for sound
     if (turn === 'player') {
-   switch (clickedBtn) {
-    case 'b1': 
-        Audio1.play();
-        break;
-    case 'b2':
-        Audio2.play();
-        break;
-    case 'b3':
-        Audio3.play();
-        break;
-    case 'b4':
-        Audio4.play();
-        break;
-    }
-    playerArr.push(clickedBtn);
-    compareArrays();
-    if (playerArr.length === computerArr.length) {
-        playerArr = [];
-        setTimeout(()=>{
+        const noise = playAudioChoice(clickedBtn);
+        noise.play();
+        noise.onended = () => {
+            playerArr.push(clickedBtn);
+            compareArrays();
+        if (compareArrays() === true && playerArr.length === computerArr.length) {
+            playerArr = [];
+            document.getElementById("board").classList.add("disabled");
+            document.getElementById("body").classList.add("wrapper");
+            console.log('computers turn now');
+            setTimeout(()=>{
             turn = 'computer';
-        console.log('computers turn now');
-        render();
-    }, 2000);
-    }
+            render();
+        }, 1500);
+        } else if (compareArrays() !== true) {
+            turn = 'null';
+            renderMessage();
+        }
+    };
 }}
 
-
-
 function compareArrays() {
-    console.log(computerArr);
-    console.log(playerArr);
+    for (let i = 0; i < playerArr.length; i++){
+        if (playerArr[i] !== computerArr[i]) {
+            return false; // Mismatch found
+        }
+    }
+    return true; // All moves match so far
 }
 
-
-function playCompAudio(compClickId) {
-    switch (compClickId) {
-        case 'b1': return Audio1;
-        case 'b2': return Audio2;
-        case 'b3': return Audio3;
-        case 'b4': return Audio4;
+function renderMessage() {
+    if (turn === 'computer') {
+        messageEl.innerText = `It's PuppyCat's Turn!`;
+    } else if (turn === 'player') {
+        messageEl.innerText = `It's Your Turn!`;
+    } else {
+        messageEl.innerHTML = `Try again next time!`;
+        replayButton.style.visibility = 'visible';
     }
 }
