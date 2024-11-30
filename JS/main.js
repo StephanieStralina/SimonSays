@@ -55,30 +55,28 @@ function renderComputerMoves() {
     computerArr.push(`b${btnIdx}`);
 }
 
-//Recursive loop
-function renderCompSound() {
+//Async promise
+async function renderCompSound() {
     let i = 0;
-    function playNext() {
-        if (i >= computerArr.length) {
-            turn = 'player';
-            document.getElementById("board").classList.remove("disabled");
-            document.getElementById("body").classList.remove("wrapper");
-            renderMessage();
-            return;
-        }
-
+    while (i < computerArr.length) {
         const computerClick = document.getElementById(computerArr[i]);
         const compSound = playAudioChoice(computerClick.id);
         computerClick.style.backgroundColor = 'red';
-        compSound.play();
-        setTimeout(() => computerClick.style.backgroundColor = '', 500);
-
-        compSound.onended = () => {
-            i++;
-            playNext();
-        };
+        await playAudio(compSound); // wait for the audio to finish
+        computerClick.style.backgroundColor = '';
+        i++;
     }
-    playNext(); 
+    turn = 'player';
+    document.getElementById("board").classList.remove("disabled");
+    document.getElementById("body").classList.remove("wrapper");
+    renderMessage();
+}
+
+function playAudio(audio) {
+    return new Promise((resolve) => {
+        audio.play();
+        audio.onended = resolve;
+    });
 }
 
 function playAudioChoice(compClickId) {
@@ -92,6 +90,7 @@ function playAudioChoice(compClickId) {
 
 function handlePlayerMove(evt) {
    let clickedBtn = evt.target.id;
+   let buttonEl = document.getElementById(clickedBtn);
    //guard for clicking outside button
    if (clickedBtn === 'board') return;
    //guard for if game hasn't starter and/or don't show elements until game starts
@@ -99,8 +98,10 @@ function handlePlayerMove(evt) {
 
    if (turn === 'player') {
         const playerAudio = playAudioChoice(clickedBtn);
+        buttonEl.style.backgroundColor = 'red';
         playerAudio.play();
         playerAudio.onended = () => {
+            buttonEl.style.backgroundColor = '';
             playerArr.push(clickedBtn);
             compareArrays();
             if (compareArrays() === true && playerArr.length === computerArr.length) {
@@ -111,7 +112,7 @@ function handlePlayerMove(evt) {
                 setTimeout(()=>{
                 turn = 'computer';
                 render();
-            }, 1500);
+            }, 800);
             } else if (compareArrays() !== true) {
                 turn = 'null';
                 renderMessage();

@@ -77,17 +77,6 @@ h1 {
     visibility: inherit;
   }
 
-  #b1:active, 
-  #b2:active, 
-  #b3:active, 
-  #b4:active {
-    background-color: red;
-  }
-
-#activeClick {
-    background-color: red;
-}
-
 .disabled {
     pointer-events: none;
   }
