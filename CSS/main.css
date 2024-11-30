@@ -27,6 +27,7 @@ h1 {
 #board {
     display: flex;
     gap: 4vmin;
+    height: 50%;
 }
 
 .choice-button {
@@ -65,11 +66,15 @@ h1 {
     background-color: yellow;
   }
 
+  #replay-button {
+    visibility: hidden;
+  }
+
   #replay-button button {
-    margin-top: 6vmin;
+    height: 25%;
     font-size: 1.75vmin;
     padding: 1.5vmin 2vmin;
-    visibility: hidden;
+    visibility: inherit;
   }
 
   #b1:active, 
