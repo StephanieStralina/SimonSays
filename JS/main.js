@@ -42,7 +42,7 @@ function render() {
         renderComputerMoves();
     }
     renderComputerMoves();
-    renderComputerPlay();
+    renderCompSound();
     renderMessage();
 }
 
@@ -51,7 +51,7 @@ function renderComputerMoves() {
     computerArr.push(`b${btnIdx}`);
 }
 
-function renderComputerPlay() {
+function renderCompSound() {
     let i = 0;
     function playNext() {
         if (i >= computerArr.length) {
@@ -60,29 +60,19 @@ function renderComputerPlay() {
         }
 
         const computerClick = document.getElementById(computerArr[i]);
-        const audio = playCompAudio(computerClick.id);
+        const compSound = playCompAudio(computerClick.id);
         computerClick.classList.add('active'); //Troubleshoot, maybe transition?
-        audio.play();
+        compSound.play();
         setTimeout(() => computerClick.classList.remove('active'), 2000);
 
-        audio.onended = () => {
+        compSound.onended = () => {
             i++;
             playNext();
         };
     }
-    
+
     playNext(); 
 }
-
-function playCompAudio(compClickId) {
-    switch (compClickId) {
-        case 'b1': return Audio1;
-        case 'b2': return Audio2;
-        case 'b3': return Audio3;
-        case 'b4': return Audio4;
-    }
-}
-
 
 
 function renderMessage() {
@@ -103,6 +93,8 @@ function handlePlayerMove(evt) {
    //guard for if game hasn't starter and/or don't show elements until game starts
    if (playerArr === undefined) return;
    //Switch Statement for sound
+   setTimeout(() => {
+    if (turn === 'player') {
    switch (clickedBtn) {
     case 'b1': 
         Audio1.play();
@@ -117,16 +109,18 @@ function handlePlayerMove(evt) {
         Audio4.play();
         break;
     }
-    if (turn === 'player') {
     playerArr.push(clickedBtn);
     compareArrays();
     if (playerArr.length === computerArr.length) {
         playerArr = [];
-        turn = 'computer';
+        setTimeout(()=>{
+            turn = 'computer';
         console.log('computers turn now');
         render();
+    }, 2000);
     }
-    }
+}
+}, 200);
 }
 
 
@@ -137,3 +131,11 @@ function compareArrays() {
 }
 
 
+function playCompAudio(compClickId) {
+    switch (compClickId) {
+        case 'b1': return Audio1;
+        case 'b2': return Audio2;
+        case 'b3': return Audio3;
+        case 'b4': return Audio4;
+    }
+}
