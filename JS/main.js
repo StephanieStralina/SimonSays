@@ -15,7 +15,7 @@ let turn;
 /*----- cached elements  -----*/
 // const buttons;
 // const turnEl;
-// const messageEl;
+const messageEl = document.getElementById('turn-display');
 const startButton = document.getElementById('start-game');
 const howButton = document.getElementById('how-to-play');
 const controlButtons = document.getElementById('control-buttons');
@@ -56,6 +56,7 @@ function renderCompSound() {
     function playNext() {
         if (i >= computerArr.length) {
             turn = 'player';
+            renderMessage();
             return;
         }
 
@@ -76,11 +77,11 @@ function renderCompSound() {
 
 
 function renderMessage() {
-    //if player moves = puppycat moves
-        //puppycat turn
-    //if player move != puppy cat
-        //Display lose message
-        //show replay section button   
+    if (turn === 'computer') {
+        messageEl.innerText = `It's PuppyCat's Turn!`;
+    } else if (turn === 'player') {
+        messageEl.innerText = `It's Your Turn!`;
+    }
 }
 
 
@@ -93,7 +94,6 @@ function handlePlayerMove(evt) {
    //guard for if game hasn't starter and/or don't show elements until game starts
    if (playerArr === undefined) return;
    //Switch Statement for sound
-   setTimeout(() => {
     if (turn === 'player') {
    switch (clickedBtn) {
     case 'b1': 
@@ -119,9 +119,7 @@ function handlePlayerMove(evt) {
         render();
     }, 2000);
     }
-}
-}, 200);
-}
+}}
 
 
 
