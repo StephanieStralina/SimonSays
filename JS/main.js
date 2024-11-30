@@ -26,11 +26,13 @@ const replayButton = document.getElementById('replay-button');
 //button clicks
 startButton.addEventListener('click', init);
 document.querySelector('#board').addEventListener('click', handlePlayerMove);
+replayButton.addEventListener('click', init);
 //audio played, 'ended' then run the push to array?
 
 /*----- functions -----*/
 function init() {
     controlButtons.style.display = 'none';
+    replayButton.style.visibility = 'hidden';
     document.getElementById("board").classList.add("disabled");
     document.getElementById("body").classList.add("wrapper");
     computerArr = [];
