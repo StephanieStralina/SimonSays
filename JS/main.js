@@ -110,9 +110,9 @@ function handlePlayerMove(evt) {
            document.getElementById("body").classList.add("wrapper");
            console.log('computers turn now');
            setTimeout(()=>{
-           turn = 'computer';
-           render();
-       }, 800);
+                turn = 'computer';
+                render();
+            }, 800);
        } else if (compareArrays() !== true) {
            turn = 'null';
            renderMessage();
@@ -136,6 +136,7 @@ function renderMessage() {
         messageEl.innerText = `It's Your Turn!`;
     } else {
         messageEl.innerHTML = `Try again next time!`;
+        document.querySelector('#board').removeEventListener('click', handlePlayerMove);
         replayButton.style.visibility = 'visible';
     }
 }
