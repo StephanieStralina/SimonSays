@@ -18,8 +18,7 @@ const startButton = document.getElementById('start-game');
 const howButton = document.getElementById('how-to-play');
 const controlButtons = document.getElementById('control-buttons');
 const replayButton = document.getElementById('replay-button');
-//add rounds display
-// const btnSpans = document.getElementsByClassName('choice-button');
+const roundsDisplay = document.getElementById('rounds');
 
 /*----- event listeners -----*/
 startButton.addEventListener('click', init);
@@ -42,6 +41,8 @@ function init() {
 }
 
 function render() {
+    rounds++;
+    roundsDisplay.innerText = `Round ${rounds}`;
     while (computerArr.length < 4) {    
         renderComputerMoves();
     }
@@ -96,28 +97,26 @@ function handlePlayerMove(evt) {
    //guard for if game hasn't starter and/or don't show elements until game starts
    if (playerArr === undefined) return;
 
-   if (turn === 'player') {
-        const playerAudio = playAudioChoice(clickedBtn);
-        buttonEl.style.backgroundColor = 'red';
-        playerAudio.play();
-        playerAudio.onended = () => {
-            buttonEl.style.backgroundColor = '';
-            playerArr.push(clickedBtn);
-            compareArrays();
-            if (compareArrays() === true && playerArr.length === computerArr.length) {
-                playerArr = [];
-                document.getElementById("board").classList.add("disabled");
-                document.getElementById("body").classList.add("wrapper");
-                console.log('computers turn now');
-                setTimeout(()=>{
-                turn = 'computer';
-                render();
-            }, 800);
-            } else if (compareArrays() !== true) {
-                turn = 'null';
-                renderMessage();
-            }
-        }
+   const playerAudio = playAudioChoice(clickedBtn);
+   buttonEl.style.backgroundColor = 'red';
+   playerAudio.play();
+   playerAudio.onended = () => {
+       buttonEl.style.backgroundColor = '';
+       playerArr.push(clickedBtn);
+       compareArrays();
+       if (compareArrays() === true && playerArr.length === computerArr.length) {
+           playerArr = [];
+           document.getElementById("board").classList.add("disabled");
+           document.getElementById("body").classList.add("wrapper");
+           console.log('computers turn now');
+           setTimeout(()=>{
+           turn = 'computer';
+           render();
+       }, 800);
+       } else if (compareArrays() !== true) {
+           turn = 'null';
+           renderMessage();
+       }
     }
 }
 
