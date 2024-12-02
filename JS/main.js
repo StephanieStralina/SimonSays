@@ -43,7 +43,7 @@ function init() {
 function render() {
     rounds++;
     roundsDisplay.innerText = `Round ${rounds}`;
-    while (computerArr.length < 4) {    
+    while (computerArr.length < 2) {    
         renderComputerMoves();
     }
     renderComputerMoves();

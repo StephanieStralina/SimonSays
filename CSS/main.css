@@ -17,17 +17,19 @@ body {
 }
 
 header {
-    height: 32vmin;
+    height: 30vmin;
 }
 
 h1 {
-    font-size: 5vmin;
-    margin-top: -1vmin;
+    font-size: 4vmin;
+    margin-top: -2vmin;
+    color: #73234c;
 }
 
 h2 {
     font-size: 3vmin;
-    margin-top: 3vmin;
+    margin-top: -1vmin;
+    color: #fff6fb;
 }
 
 #board {
@@ -37,16 +39,7 @@ h2 {
     gap: 4vmin;
     width: 100%;
     height: 80vmin;
-    margin-top: 2vmin;
 }
-
-/* .choice-button {
-    height: 8vmin;
-    width: 8vmin;
-    border-radius: 50%;
-    border: 5px solid yellow;
-  } get rid of */
-
 
   #control-buttons {
     display: flex;
@@ -57,25 +50,13 @@ h2 {
   }
 
   #control-buttons button {
-    font-size: 2vmin;
+    font-size: 2.5vmin;
     padding: 1vmin 5vmin;
+    border: none;
+    border-radius: 7px;
+    background-color: #ffa691;
+    color: #4e002d;
   }
-
-  /* #b1 {
-    background-color: blue;
-  }
-
-  #b2 {
-    background-color: green;
-  }
-
-  #b3 {
-    background-color: pink;
-  }
-
-  #b4 {
-    background-color: yellow;
-  } */
 
   #replay-button {
     visibility: hidden;
@@ -84,8 +65,13 @@ h2 {
   }
 
   #replay-button button {
+    border: none;
+    border-radius: 7px;
+    background-color: #fff4fc;
+    color: #98466e;
     font-size: 1.75vmin;
-    padding: 1.5vmin 2vmin;
+    padding: 1vmin 5vmin;
+    height: 70%;
     visibility: inherit;
   }
 
