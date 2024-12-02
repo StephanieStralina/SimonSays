@@ -22,13 +22,13 @@ const roundsDisplay = document.getElementById('rounds');
 
 /*----- event listeners -----*/
 startButton.addEventListener('click', init);
-document.querySelector('#board').addEventListener('click', handlePlayerMove);
 //add keyboard strokes as clicks?
 replayButton.addEventListener('click', init);
 
 
 /*----- functions -----*/
 function init() {
+    document.querySelector('#board').addEventListener('click', handlePlayerMove);
     controlButtons.style.display = 'none';
     replayButton.style.visibility = 'hidden';
     document.getElementById("board").classList.add("disabled");
@@ -62,9 +62,9 @@ async function renderCompSound() {
     while (i < computerArr.length) {
         const computerClick = document.getElementById(computerArr[i]);
         const compSound = playAudioChoice(computerClick.id);
-        computerClick.style.backgroundColor = 'red';
+        computerClick.style.fill = 'red';
         await playAudio(compSound); // wait for the audio to finish
-        computerClick.style.backgroundColor = '';
+        computerClick.style.fill = '';
         i++;
     }
     turn = 'player';
@@ -93,15 +93,15 @@ function handlePlayerMove(evt) {
    let clickedBtn = evt.target.id;
    let buttonEl = document.getElementById(clickedBtn);
    //guard for clicking outside button
-   if (clickedBtn === 'board') return;
+   if (clickedBtn === 'board' || clickedBtn === '') return;
    //guard for if game hasn't starter and/or don't show elements until game starts
    if (playerArr === undefined) return;
 
    const playerAudio = playAudioChoice(clickedBtn);
-   buttonEl.style.backgroundColor = 'red';
+   buttonEl.style.fill = 'red';
    playerAudio.play();
    playerAudio.onended = () => {
-       buttonEl.style.backgroundColor = '';
+       buttonEl.style.fill = '';
        playerArr.push(clickedBtn);
        compareArrays();
        if (compareArrays() === true && playerArr.length === computerArr.length) {
