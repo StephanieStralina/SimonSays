@@ -62,7 +62,7 @@ async function renderCompSound() {
     while (i < computerArr.length) {
         const computerClick = document.getElementById(computerArr[i]);
         const compSound = playAudioChoice(computerClick.id);
-        computerClick.style.fill = 'red';
+        computerClick.style.fill = '#fff6fb';
         await playAudio(compSound); // wait for the audio to finish
         computerClick.style.fill = '';
         i++;
@@ -98,7 +98,7 @@ function handlePlayerMove(evt) {
    if (playerArr === undefined) return;
 
    const playerAudio = playAudioChoice(clickedBtn);
-   buttonEl.style.fill = 'red';
+   buttonEl.style.fill = '#fff6fb';
    playerAudio.play();
    playerAudio.onended = () => {
        buttonEl.style.fill = '';
