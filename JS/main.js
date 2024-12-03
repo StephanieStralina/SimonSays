@@ -4,6 +4,10 @@ const Audio2 = new Audio('https://dl.dropbox.com/scl/fi/ftmj9zqar341tuks94bwt/pu
 const Audio3 = new Audio('https://dl.dropbox.com/scl/fi/hg7h0k9bbyhghtemhnn4u/puppycat3.MP3?rlkey=gvz13ta228rqmi3i2mzktck9a&st=wt3wb3x1&dl=0');
 const Audio4 = new Audio('https://dl.dropbox.com/scl/fi/ua8v1pq3r6btv11do5xbl/puppycat4.MP3?rlkey=xb169dsjmye0a736j40y8ldmd&st=4cmddnak&dl=0');
 
+const successSound = new Audio('https://dl.dropbox.com/scl/fi/jb2vbsxxkltpgpdtb3imq/successsound.wav?rlkey=4d7ike6a6zb9sjh9cke6vepej&st=r6bgth6h&dl=0')
+const loseSound = new Audio('https://dl.dropbox.com/scl/fi/tughwhfvmc0787fehk6bj/losesound.mp3?rlkey=4czstxju535u6tyzrapx7jix5&st=ombe3yf0&dl=0')
+loseSound.volume = 0.2;
+
 const gameButtons = [1, 2, 3, 4,];
 
 /*----- state variables -----*/
@@ -61,20 +65,20 @@ function init() {
     playerArr = [];
     rounds = 0;
     turn = 'computer';
-    render();
+    setTimeout(() => {  
+        render();
+    }, 600);
 }
 
 function render() {
     rounds++;
-    roundsDisplay.innerText = `Round ${rounds}`;
+    renderMessage();
     while (computerArr.length < 2) {    
         renderComputerMoves();
     }
-    setTimeout(() => {        
+        roundsDisplay.innerText = `Round ${rounds}`;     
         renderComputerMoves();
         renderCompSound();
-        renderMessage();
-    }, 800);
 }
 
 function renderComputerMoves() {
@@ -157,11 +161,16 @@ function handlePlayerMove(evt) {
        playerArr.push(clickedhowToBtn);
        compareArrays();
        if (compareArrays() === true && playerArr.length === computerArr.length) {
+           removeKeyListener();
            playerArr = [];
            document.getElementById('board').classList.add('disabled');
            document.getElementById('body').classList.add('wrapper');
+           successSound.play();
+           messageEl.innerHTML = `<span style = "color: #ffbfa9">GREAT JOB!</span>`;
+        setTimeout(() => {  
            turn = 'computer';
            render();
+        }, 1500);
        } else if (compareArrays() !== true) {
            turn = 'null';
            renderMessage();
@@ -180,13 +189,14 @@ function compareArrays() {
 
 function renderMessage() {
     if (turn === 'computer') {
-        removeKeyListener();
         messageEl.innerText = `It's PuppyCat's Turn!`;
     } else if (turn === 'player') {
         addKeyListener();
-        messageEl.innerText = `It's Your Turn!`;
+        messageEl.innerHTML = `<span style="color: #008b9b">It's Your Turn!</span>`;
     } else {
-        messageEl.innerHTML = `Try again next time!`;
+        loseSound.play();
+        messageEl.innerHTML = `<span style="color: #1f2c39">Try again next time!</span>`;
+        roundsDisplay.innerHTML=`<span style="color: #1f2c39">You lasted ${rounds} rounds</span>`;
         document.querySelector('#board').removeEventListener('click', handlePlayerMove);
         removeKeyListener();
         replayButton.style.visibility = 'visible';

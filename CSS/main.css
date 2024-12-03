@@ -177,6 +177,7 @@ h2 {
     float: right;
     font-size: 28px;
     font-weight: bold;
+    margin-right: -4vmin;
   }
 
 .close:hover,
@@ -184,4 +185,12 @@ h2 {
   color: white;
   text-decoration: none;
   cursor: pointer;
+}
+
+#b1:hover,
+#b2:hover,
+#b3:hover,
+#b4:hover {
+    stroke: #fff6fb;
+    stroke-width: 1;
 }
