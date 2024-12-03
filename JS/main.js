@@ -23,7 +23,6 @@ const roundsDisplay = document.getElementById('rounds');
 /*----- event listeners -----*/
 startButton.addEventListener('click', init);
 replayButton.addEventListener('click', init);
-document.addEventListener('keydown', typeSelect);
 
 /*----- functions -----*/
 function init() {
@@ -45,9 +44,11 @@ function render() {
     while (computerArr.length < 2) {    
         renderComputerMoves();
     }
-    renderComputerMoves();
-    renderCompSound();
-    renderMessage();
+    setTimeout(() => {        
+        renderComputerMoves();
+        renderCompSound();
+        renderMessage();
+    }, 800);
 }
 
 function renderComputerMoves() {
@@ -115,7 +116,6 @@ function typeSelect(evt) {
 }
 
 function handlePlayerMove(evt) {
-    console.log(evt);
    let clickedBtn = evt.target.id;
    let buttonEl = document.getElementById(clickedBtn);
    //guard for clicking outside button
@@ -134,11 +134,8 @@ function handlePlayerMove(evt) {
            playerArr = [];
            document.getElementById('board').classList.add('disabled');
            document.getElementById('body').classList.add('wrapper');
-           console.log('computers turn now');
-           setTimeout(()=>{
-                turn = 'computer';
-                render();
-            }, 800);
+           turn = 'computer';
+           render();
        } else if (compareArrays() !== true) {
            turn = 'null';
            renderMessage();
@@ -157,12 +154,23 @@ function compareArrays() {
 
 function renderMessage() {
     if (turn === 'computer') {
+        removeKeyListener();
         messageEl.innerText = `It's PuppyCat's Turn!`;
     } else if (turn === 'player') {
+        addKeyListener();
         messageEl.innerText = `It's Your Turn!`;
     } else {
         messageEl.innerHTML = `Try again next time!`;
         document.querySelector('#board').removeEventListener('click', handlePlayerMove);
+        removeKeyListener();
         replayButton.style.visibility = 'visible';
     }
+}
+
+function removeKeyListener() {
+    document.removeEventListener('keydown', typeSelect);
+}
+
+function addKeyListener() {
+    document.addEventListener('keydown', typeSelect);
 }
