@@ -19,10 +19,36 @@ const howButton = document.getElementById('how-to-play');
 const controlButtons = document.getElementById('control-buttons');
 const replayButton = document.getElementById('replay-button');
 const roundsDisplay = document.getElementById('rounds');
+const modal = document.getElementById("how-to-play-modal");
+const howToBtn = document.getElementById("how-to-play");
+const exit = document.getElementsByClassName("close");
 
 /*----- event listeners -----*/
 startButton.addEventListener('click', init);
 replayButton.addEventListener('click', init);
+function removeKeyListener() {
+    document.removeEventListener('keydown', typeSelect);
+}
+function addKeyListener() {
+    document.addEventListener('keydown', typeSelect);
+}
+
+/*-----modal event listeners -----*/
+
+howToBtn.onclick = function() {
+    modal.style.display = "block";
+  }
+  
+  exit.onclick = function() {
+    modal.style.display = "none";
+  }
+  
+  window.onclick = function(event) {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  }
+  
 
 /*----- functions -----*/
 function init() {
@@ -52,8 +78,8 @@ function render() {
 }
 
 function renderComputerMoves() {
-    const btnIdx = (Math.floor(Math.random() * gameButtons.length+1));
-    computerArr.push(`b${btnIdx}`);
+    const howToBtnIdx = (Math.floor(Math.random() * gameButtons.length+1));
+    computerArr.push(`b${howToBtnIdx}`);
 }
 
 //Async promise
@@ -116,19 +142,19 @@ function typeSelect(evt) {
 }
 
 function handlePlayerMove(evt) {
-   let clickedBtn = evt.target.id;
-   let buttonEl = document.getElementById(clickedBtn);
+   let clickedhowToBtn = evt.target.id;
+   let buttonEl = document.getElementById(clickedhowToBtn);
    //guard for clicking outside button
-   if (clickedBtn === 'board' || clickedBtn === '') return;
+   if (clickedhowToBtn === 'board' || clickedhowToBtn === '') return;
    //guard for if game hasn't starter and/or don't show elements until game starts
    if (playerArr === undefined) return;
 
-   const playerAudio = playAudioChoice(clickedBtn);
+   const playerAudio = playAudioChoice(clickedhowToBtn);
    buttonEl.style.fill = '#fff6fb';
    playerAudio.play();
    playerAudio.onended = () => {
        buttonEl.style.fill = '';
-       playerArr.push(clickedBtn);
+       playerArr.push(clickedhowToBtn);
        compareArrays();
        if (compareArrays() === true && playerArr.length === computerArr.length) {
            playerArr = [];
@@ -167,10 +193,3 @@ function renderMessage() {
     }
 }
 
-function removeKeyListener() {
-    document.removeEventListener('keydown', typeSelect);
-}
-
-function addKeyListener() {
-    document.addEventListener('keydown', typeSelect);
-}
