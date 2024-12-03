@@ -21,7 +21,7 @@ const replayButton = document.getElementById('replay-button');
 const roundsDisplay = document.getElementById('rounds');
 const modal = document.getElementById("how-to-play-modal");
 const howToBtn = document.getElementById("how-to-play");
-const exit = document.getElementsByClassName("close");
+const exit = document.querySelector(".close");
 
 /*----- event listeners -----*/
 startButton.addEventListener('click', init);
@@ -33,13 +33,13 @@ function addKeyListener() {
     document.addEventListener('keydown', typeSelect);
 }
 
-/*-----modal event listeners -----*/
+/*-----modal events -----*/
 
 howToBtn.onclick = function() {
     modal.style.display = "block";
   }
   
-  exit.onclick = function() {
+exit.onclick = function() {
     modal.style.display = "none";
   }
   
