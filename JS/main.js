@@ -22,17 +22,16 @@ const roundsDisplay = document.getElementById('rounds');
 
 /*----- event listeners -----*/
 startButton.addEventListener('click', init);
-//add keyboard strokes as clicks?
 replayButton.addEventListener('click', init);
-
+document.addEventListener('keydown', typeSelect);
 
 /*----- functions -----*/
 function init() {
     document.querySelector('#board').addEventListener('click', handlePlayerMove);
-    controlButtons.style.display = 'none';
+    controlButtons.style.visibility = 'hidden';
     replayButton.style.visibility = 'hidden';
-    document.getElementById("board").classList.add("disabled");
-    document.getElementById("body").classList.add("wrapper");
+    document.getElementById('board').classList.add('disabled');
+    document.getElementById('body').classList.add('wrapper');
     computerArr = [];
     playerArr = [];
     rounds = 0;
@@ -68,8 +67,8 @@ async function renderCompSound() {
         i++;
     }
     turn = 'player';
-    document.getElementById("board").classList.remove("disabled");
-    document.getElementById("body").classList.remove("wrapper");
+    document.getElementById('board').classList.remove('disabled');
+    document.getElementById('body').classList.remove('wrapper');
     renderMessage();
 }
 
@@ -89,7 +88,34 @@ function playAudioChoice(compClickId) {
     }
 }
 
+function typeSelect(evt) {
+    let keyID;
+    switch (evt.key) {
+        case '1':
+            keyID = 'b1';
+            break;
+        case '2':
+            keyID = 'b2';
+            break;
+        case '3':
+            keyID = 'b3';
+            break;
+        case '4':
+            keyID = 'b4';
+            break;
+        default:
+            return;
+    }
+    
+    const buttonEl = document.getElementById(keyID);
+    if (buttonEl) {
+        const keyClick = new Event('click', { bubbles: true, cancelable: true });
+        buttonEl.dispatchEvent(keyClick);
+    }
+}
+
 function handlePlayerMove(evt) {
+    console.log(evt);
    let clickedBtn = evt.target.id;
    let buttonEl = document.getElementById(clickedBtn);
    //guard for clicking outside button
@@ -106,8 +132,8 @@ function handlePlayerMove(evt) {
        compareArrays();
        if (compareArrays() === true && playerArr.length === computerArr.length) {
            playerArr = [];
-           document.getElementById("board").classList.add("disabled");
-           document.getElementById("body").classList.add("wrapper");
+           document.getElementById('board').classList.add('disabled');
+           document.getElementById('body').classList.add('wrapper');
            console.log('computers turn now');
            setTimeout(()=>{
                 turn = 'computer';
