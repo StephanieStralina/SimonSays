@@ -30,6 +30,7 @@ const exitBtn = document.querySelector(".close");
 /*----- event listeners -----*/
 startButton.addEventListener('click', init);
 replayButton.addEventListener('click', init);
+const gameControls = document.querySelector('#board').addEventListener('click', handlePlayerMove);
 function removeKeyListener() {
     document.removeEventListener('keydown', typeSelect);
 }
@@ -56,7 +57,7 @@ window.onclick = function (event) {
 
 /*----- functions -----*/
 function init() {
-    document.querySelector('#board').addEventListener('click', handlePlayerMove);
+    gameControls;
     controlButtons.style.visibility = 'hidden';
     replayButton.style.visibility = 'hidden';
     document.getElementById('board').classList.add('disabled');
@@ -86,14 +87,13 @@ function renderComputerMoves() {
     computerArr.push(`b${howToBtnIdx}`);
 }
 
-//Async promise
 async function renderCompSound() {
     let i = 0;
     while (i < computerArr.length) {
         const computerClick = document.getElementById(computerArr[i]);
         const compSound = playAudioChoice(computerClick.id);
         computerClick.style.fill = '#fff6fb';
-        await playAudio(compSound); // wait for the audio to finish
+        await playAudio(compSound); 
         computerClick.style.fill = '';
         i++;
     }
@@ -146,19 +146,19 @@ function typeSelect(evt) {
 }
 
 function handlePlayerMove(evt) {
-    let clickedhowToBtn = evt.target.id;
-    let buttonEl = document.getElementById(clickedhowToBtn);
+    let clickedBtn = evt.target.id;
+    let buttonEl = document.getElementById(clickedBtn);
     //guard for clicking outside button
-    if (clickedhowToBtn === 'board' || clickedhowToBtn === '') return;
+    if (clickedBtn === 'board' || clickedBtn === '') return;
     //guard for if game hasn't starter and/or don't show elements until game starts
     if (playerArr === undefined) return;
 
-    const playerAudio = playAudioChoice(clickedhowToBtn);
+    const playerAudio = playAudioChoice(clickedBtn);
     buttonEl.style.fill = '#fff6fb';
     playerAudio.play();
     playerAudio.onended = () => {
         buttonEl.style.fill = '';
-        playerArr.push(clickedhowToBtn);
+        playerArr.push(clickedBtn);
         compareArrays();
         if (compareArrays() === true && playerArr.length === computerArr.length) {
             removeKeyListener();
