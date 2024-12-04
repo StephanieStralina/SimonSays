@@ -26,6 +26,7 @@ const roundsDisplay = document.getElementById('rounds');
 const modal = document.getElementById("how-to-play-modal");
 const howToBtn = document.getElementById("how-to-play");
 const exitBtn = document.querySelector(".close");
+const highScore = document.getElementById('player-high-score');
 
 /*----- event listeners -----*/
 startButton.addEventListener('click', init);
@@ -58,8 +59,11 @@ function init() {
     document.querySelector('#board').addEventListener('click', handlePlayerMove);
     controlButtons.style.visibility = 'hidden';
     replayButton.style.visibility = 'hidden';
+    document.getElementById('hints').style.display = 'flex';
+    document.getElementById('high-score').style.display = 'flex';
     document.getElementById('board').classList.add('disabled');
     document.getElementById('body').classList.add('wrapper');
+    updateHighScore();
     computerArr = [];
     playerArr = [];
     rounds = 0;
@@ -194,10 +198,25 @@ function renderMessage() {
         messageEl.innerHTML = `<span style="color: #008b9b">It's Your Turn!</span>`;
     } else {
         messageEl.innerHTML = `<span style="color: #1f2c39">Try again next time!</span>`;
-        roundsDisplay.innerHTML = `<span style="color: #1f2c39">You lasted <span style="color: #fff4fc">${rounds}</span> rounds</span>`;
-        document.querySelector('#board').removeEventListener('click', handlePlayerMove);
-        removeKeyListener();
-        replayButton.style.visibility = 'visible';
+            if (rounds > highScore.innerHTML) {
+                updateHighScore();
+                roundsDisplay.innerHTML = `<span style="color: #ffbfa9">New High Score!</span>`;
+            } else {
+                updateHighScore();
+                roundsDisplay.innerHTML = `<span style="color: #1f2c39">You lasted <span style="color: #fff4fc">${rounds}</span> rounds</span>`;
+            }  
+            document.querySelector('#board').removeEventListener('click', handlePlayerMove);
+            removeKeyListener();
+            replayButton.style.visibility = 'visible';
     }
 }
 
+function updateHighScore() {
+    const currentHighScore = localStorage.getItem('highScore') || 0;
+    if (rounds > currentHighScore) {
+        localStorage.setItem('highScore', rounds);
+        highScore.innerHTML = `${rounds}`;
+    } else {
+        highScore.innerHTML = `${currentHighScore}`;
+    }
+}
