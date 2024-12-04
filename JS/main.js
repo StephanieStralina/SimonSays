@@ -82,18 +82,17 @@ function render() {
 }
 
 function renderComputerMoves() {
-    const howToBtnIdx = (Math.floor(Math.random() * gameButtons.length + 1));
-    computerArr.push(`b${howToBtnIdx}`);
+    const compBtnIdx = (Math.floor(Math.random() * gameButtons.length + 1));
+    computerArr.push(`b${compBtnIdx}`);
 }
 
-//Async promise
 async function renderCompSound() {
     let i = 0;
     while (i < computerArr.length) {
         const computerClick = document.getElementById(computerArr[i]);
         const compSound = playAudioChoice(computerClick.id);
         computerClick.style.fill = '#fff6fb';
-        await playAudio(compSound); // wait for the audio to finish
+        await playAudio(compSound);
         computerClick.style.fill = '';
         i++;
     }
@@ -146,25 +145,25 @@ function typeSelect(evt) {
 }
 
 function handlePlayerMove(evt) {
-    let clickedhowToBtn = evt.target.id;
-    let buttonEl = document.getElementById(clickedhowToBtn);
+    let clickedBtn = evt.target.id;
+    let buttonEl = document.getElementById(clickedBtn);
     //guard for clicking outside button
-    if (clickedhowToBtn === 'board' || clickedhowToBtn === '') return;
-    //guard for if game hasn't starter and/or don't show elements until game starts
+    if (clickedBtn === 'board' || clickedBtn === '') return;
+    //guard for if game hasn't started
     if (playerArr === undefined) return;
 
-    const playerAudio = playAudioChoice(clickedhowToBtn);
+    const playerAudio = playAudioChoice(clickedBtn);
     buttonEl.style.fill = '#fff6fb';
     playerAudio.play();
     playerAudio.onended = () => {
         buttonEl.style.fill = '';
-        playerArr.push(clickedhowToBtn);
+        playerArr.push(clickedBtn);
         compareArrays();
         if (compareArrays() === true && playerArr.length === computerArr.length) {
             removeKeyListener();
-            playerArr = [];
             document.getElementById('board').classList.add('disabled');
             document.getElementById('body').classList.add('wrapper');
+            playerArr = [];
             successSound.play();
             messageEl.innerHTML = `<span style = "color: #ffbfa9">GREAT JOB!</span>`;
             setTimeout(() => {
