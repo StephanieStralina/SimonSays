@@ -23,7 +23,7 @@ PuppyCat can kind of be a jerk, so there is no true "win" scenario. However, a p
 
 ## Getting Started
 
-[Click to Play PuppyCat Says!](deployment url here)
+[Click to Play PuppyCat Says!](https://stephaniestralina.github.io/SimonSays/)
 
 <u>How to Play</u>
 
@@ -32,6 +32,10 @@ PuppyCat can kind of be a jerk, so there is no true "win" scenario. However, a p
     - A series of 3 sounds will play (with lights to show which button makes which sound).
 3. The player should select the pawprints corresponding with the sounds/lights that were played by PuppyCat in the same order.
 4. If the player selects the correct paw prints - they advance to the next round!
+
+# Attribution
+
+All paw print sounds are sounds made by PuppyCat and are property of the show *Bee and PuppyCat*. The background art was created by me but is meant to pay homage to a background present in the show. Win & lose condition sounds are video game sound effects from Epidemic Sounds.
 
 
 # Next Steps

@@ -83,8 +83,8 @@ function render() {
 }
 
 function renderComputerMoves() {
-    const howToBtnIdx = (Math.floor(Math.random() * gameButtons.length + 1));
-    computerArr.push(`b${howToBtnIdx}`);
+    const compBtnIdx = (Math.floor(Math.random() * gameButtons.length + 1));
+    computerArr.push(`b${compBtnIdx}`);
 }
 
 async function renderCompSound() {
@@ -93,7 +93,7 @@ async function renderCompSound() {
         const computerClick = document.getElementById(computerArr[i]);
         const compSound = playAudioChoice(computerClick.id);
         computerClick.style.fill = '#fff6fb';
-        await playAudio(compSound); 
+        await playAudio(compSound);
         computerClick.style.fill = '';
         i++;
     }
@@ -150,7 +150,7 @@ function handlePlayerMove(evt) {
     let buttonEl = document.getElementById(clickedBtn);
     //guard for clicking outside button
     if (clickedBtn === 'board' || clickedBtn === '') return;
-    //guard for if game hasn't starter and/or don't show elements until game starts
+    //guard for if game hasn't started
     if (playerArr === undefined) return;
 
     const playerAudio = playAudioChoice(clickedBtn);
@@ -162,9 +162,9 @@ function handlePlayerMove(evt) {
         compareArrays();
         if (compareArrays() === true && playerArr.length === computerArr.length) {
             removeKeyListener();
-            playerArr = [];
             document.getElementById('board').classList.add('disabled');
             document.getElementById('body').classList.add('wrapper');
+            playerArr = [];
             successSound.play();
             messageEl.innerHTML = `<span style = "color: #ffbfa9">GREAT JOB!</span>`;
             setTimeout(() => {
