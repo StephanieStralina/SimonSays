@@ -23,7 +23,7 @@ PuppyCat can kind of be a jerk, so there is no true "win" scenario. However, a p
 
 ## Getting Started
 
-[Click to Play PuppyCat Says!](deployment url here)
+[Click to Play PuppyCat Says!](https://stephaniestralina.github.io/SimonSays/)
 
 <u>How to Play</u>
 
