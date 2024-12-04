@@ -54,7 +54,6 @@ window.onclick = function (event) {
     }
 }
 
-
 /*----- functions -----*/
 function init() {
     gameControls;
