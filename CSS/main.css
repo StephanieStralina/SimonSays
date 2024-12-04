@@ -128,6 +128,12 @@ h2 {
   font-size: 2vmin;
 }
 
+#hint-rounds {
+  display: flex;
+  flex-direction: row;
+  gap: 1vmin;
+}
+
 #hints h2 {
   font-size: 2.5vmin;
 }
@@ -236,4 +242,15 @@ h2 {
 #b4:hover {
   stroke: #fff6fb;
   stroke-width: 1;
+}
+
+#hint1,
+#hint2,
+#hint3,
+#hint4 {
+  width: 2vmin;
+  height: 2vmin;
+  border: .5vmin solid black;
+  background-color: black;
+  border-radius: 50%;
 }

@@ -16,6 +16,7 @@ let rounds;
 let computerArr;
 let playerArr;
 let turn;
+let hints;
 
 /*----- cached elements  -----*/
 const messageEl = document.getElementById('turn-display');
@@ -68,6 +69,7 @@ function init() {
     computerArr = [];
     playerArr = [];
     rounds = 0;
+    hints = 3;
     turn = 'computer';
     setTimeout(() => {
         render();
