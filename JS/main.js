@@ -53,7 +53,6 @@ window.onclick = function (event) {
     }
 }
 
-
 /*----- functions -----*/
 function init() {
     document.querySelector('#board').addEventListener('click', handlePlayerMove);
