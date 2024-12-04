@@ -30,7 +30,6 @@ const exitBtn = document.querySelector(".close");
 /*----- event listeners -----*/
 startButton.addEventListener('click', init);
 replayButton.addEventListener('click', init);
-const gameControls = document.querySelector('#board').addEventListener('click', handlePlayerMove);
 function removeKeyListener() {
     document.removeEventListener('keydown', typeSelect);
 }
@@ -56,7 +55,7 @@ window.onclick = function (event) {
 
 /*----- functions -----*/
 function init() {
-    gameControls;
+    document.querySelector('#board').addEventListener('click', handlePlayerMove);
     controlButtons.style.visibility = 'hidden';
     replayButton.style.visibility = 'hidden';
     document.getElementById('board').classList.add('disabled');
@@ -201,4 +200,3 @@ function renderMessage() {
         replayButton.style.visibility = 'visible';
     }
 }
-
