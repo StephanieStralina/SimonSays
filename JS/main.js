@@ -25,7 +25,7 @@ const replayButton = document.getElementById('replay-button');
 const roundsDisplay = document.getElementById('rounds');
 const modal = document.getElementById("how-to-play-modal");
 const howToBtn = document.getElementById("how-to-play");
-const exit = document.querySelector(".close");
+const exitBtn = document.querySelector(".close");
 
 /*----- event listeners -----*/
 startButton.addEventListener('click', init);
@@ -39,20 +39,20 @@ function addKeyListener() {
 
 /*-----modal events -----*/
 
-howToBtn.onclick = function() {
+howToBtn.onclick = function () {
     modal.style.display = "block";
-  }
-  
-exit.onclick = function() {
+}
+
+exitBtn.onclick = function () {
     modal.style.display = "none";
-  }
-  
-  window.onclick = function(event) {
+}
+
+window.onclick = function (event) {
     if (event.target === modal) {
-      modal.style.display = "none";
+        modal.style.display = "none";
     }
-  }
-  
+}
+
 
 /*----- functions -----*/
 function init() {
@@ -65,7 +65,7 @@ function init() {
     playerArr = [];
     rounds = 0;
     turn = 'computer';
-    setTimeout(() => {  
+    setTimeout(() => {
         render();
     }, 600);
 }
@@ -73,16 +73,16 @@ function init() {
 function render() {
     rounds++;
     renderMessage();
-    while (computerArr.length < 2) {    
+    while (computerArr.length < 2) {
         renderComputerMoves();
     }
-        roundsDisplay.innerText = `Round ${rounds}`;     
-        renderComputerMoves();
-        renderCompSound();
+    roundsDisplay.innerText = `Round ${rounds}`;
+    renderComputerMoves();
+    renderCompSound();
 }
 
 function renderComputerMoves() {
-    const howToBtnIdx = (Math.floor(Math.random() * gameButtons.length+1));
+    const howToBtnIdx = (Math.floor(Math.random() * gameButtons.length + 1));
     computerArr.push(`b${howToBtnIdx}`);
 }
 
@@ -137,7 +137,7 @@ function typeSelect(evt) {
         default:
             return;
     }
-    
+
     const buttonEl = document.getElementById(keyID);
     if (buttonEl) {
         const keyClick = new Event('click', { bubbles: true, cancelable: true });
@@ -146,40 +146,41 @@ function typeSelect(evt) {
 }
 
 function handlePlayerMove(evt) {
-   let clickedhowToBtn = evt.target.id;
-   let buttonEl = document.getElementById(clickedhowToBtn);
-   //guard for clicking outside button
-   if (clickedhowToBtn === 'board' || clickedhowToBtn === '') return;
-   //guard for if game hasn't starter and/or don't show elements until game starts
-   if (playerArr === undefined) return;
+    let clickedhowToBtn = evt.target.id;
+    let buttonEl = document.getElementById(clickedhowToBtn);
+    //guard for clicking outside button
+    if (clickedhowToBtn === 'board' || clickedhowToBtn === '') return;
+    //guard for if game hasn't starter and/or don't show elements until game starts
+    if (playerArr === undefined) return;
 
-   const playerAudio = playAudioChoice(clickedhowToBtn);
-   buttonEl.style.fill = '#fff6fb';
-   playerAudio.play();
-   playerAudio.onended = () => {
-       buttonEl.style.fill = '';
-       playerArr.push(clickedhowToBtn);
-       compareArrays();
-       if (compareArrays() === true && playerArr.length === computerArr.length) {
-           removeKeyListener();
-           playerArr = [];
-           document.getElementById('board').classList.add('disabled');
-           document.getElementById('body').classList.add('wrapper');
-           successSound.play();
-           messageEl.innerHTML = `<span style = "color: #ffbfa9">GREAT JOB!</span>`;
-        setTimeout(() => {  
-           turn = 'computer';
-           render();
-        }, 1500);
-       } else if (compareArrays() !== true) {
-           turn = 'null';
-           renderMessage();
-       }
+    const playerAudio = playAudioChoice(clickedhowToBtn);
+    buttonEl.style.fill = '#fff6fb';
+    playerAudio.play();
+    playerAudio.onended = () => {
+        buttonEl.style.fill = '';
+        playerArr.push(clickedhowToBtn);
+        compareArrays();
+        if (compareArrays() === true && playerArr.length === computerArr.length) {
+            removeKeyListener();
+            playerArr = [];
+            document.getElementById('board').classList.add('disabled');
+            document.getElementById('body').classList.add('wrapper');
+            successSound.play();
+            messageEl.innerHTML = `<span style = "color: #ffbfa9">GREAT JOB!</span>`;
+            setTimeout(() => {
+                turn = 'computer';
+                render();
+            }, 1500);
+        } else if (compareArrays() !== true) {
+            loseSound.play();
+            turn = 'null';
+            renderMessage();
+        }
     }
 }
 
 function compareArrays() {
-    for (let i = 0; i < playerArr.length; i++){
+    for (let i = 0; i < playerArr.length; i++) {
         if (playerArr[i] !== computerArr[i]) {
             return false;
         }
@@ -194,9 +195,8 @@ function renderMessage() {
         addKeyListener();
         messageEl.innerHTML = `<span style="color: #008b9b">It's Your Turn!</span>`;
     } else {
-        loseSound.play();
         messageEl.innerHTML = `<span style="color: #1f2c39">Try again next time!</span>`;
-        roundsDisplay.innerHTML=`<span style="color: #1f2c39">You lasted ${rounds} rounds</span>`;
+        roundsDisplay.innerHTML = `<span style="color: #1f2c39">You lasted <span style="color: #fff4fc">${rounds}</span> rounds</span>`;
         document.querySelector('#board').removeEventListener('click', handlePlayerMove);
         removeKeyListener();
         replayButton.style.visibility = 'visible';
