@@ -7,6 +7,7 @@ const Audio4 = new Audio('https://dl.dropbox.com/scl/fi/ua8v1pq3r6btv11do5xbl/pu
 const successSound = new Audio('https://dl.dropbox.com/scl/fi/jb2vbsxxkltpgpdtb3imq/successsound.wav?rlkey=4d7ike6a6zb9sjh9cke6vepej&st=r6bgth6h&dl=0')
 const loseSound = new Audio('https://dl.dropbox.com/scl/fi/tughwhfvmc0787fehk6bj/losesound.mp3?rlkey=4czstxju535u6tyzrapx7jix5&st=ombe3yf0&dl=0')
 loseSound.volume = 0.2;
+const victorySound = new Audio('https://dl.dropbox.com/scl/fi/i9hok3gh3t8hg90dyhwyu/victory.wav?rlkey=91es5w9oefuer5hwwm7wbk2lv&st=ay0kzq43&dl=0')
 
 const gameButtons = [1, 2, 3, 4,];
 
@@ -174,7 +175,6 @@ function handlePlayerMove(evt) {
                 render();
             }, 1500);
         } else if (compareArrays() !== true) {
-            loseSound.play();
             turn = 'null';
             renderMessage();
         }
@@ -197,12 +197,15 @@ function renderMessage() {
         addKeyListener();
         messageEl.innerHTML = `<span style="color: #008b9b">It's Your Turn!</span>`;
     } else {
-        messageEl.innerHTML = `<span style="color: #1f2c39">Try again next time!</span>`;
             if (rounds > highScore.innerHTML) {
+                victorySound.play();
                 updateHighScore();
+                messageEl.innerHTML = `<span style="color: #1f2c39">Great job!</span>`;
                 roundsDisplay.innerHTML = `<span style="color: #ffbfa9">New High Score!</span>`;
             } else {
+                loseSound.play();
                 updateHighScore();
+                messageEl.innerHTML = `<span style="color: #1f2c39">Try again next time!</span>`;
                 roundsDisplay.innerHTML = `<span style="color: #1f2c39">You lasted <span style="color: #fff4fc">${rounds}</span> rounds</span>`;
             }  
             document.querySelector('#board').removeEventListener('click', handlePlayerMove);
