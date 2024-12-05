@@ -87,16 +87,6 @@ h2 {
   }
 }
 
-#control-buttons {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 2.5vmin;
-  margin-top: 2vmin;
-  animation-name: fade-in;
-  animation-duration: 1.5s;
-}
-
 #high-score {
   display: none;
   flex-direction: column;
@@ -119,6 +109,12 @@ h2 {
   font-size: 2vmin;
 }
 
+#hint-rounds {
+  display: flex;
+  flex-direction: row;
+  gap: 1vmin;
+}
+
 #hints h2 {
   font-size: 2.5vmin;
 }
@@ -126,6 +122,35 @@ h2 {
 #turn-elements {
   width: 30%;
   text-align: center;
+}
+
+#paw-wrapper {
+  height: 40vmin;
+}
+
+#bottom-row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 6vmin;
+  margin-top: 2vmin;
+}
+
+#game-display {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+}
+
+#control-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5vmin;
+  width: 100%;
+  animation-name: fade-in;
+  animation-duration: 1.5s;
 }
 
 #control-buttons button {
@@ -141,10 +166,21 @@ h2 {
   background-color: #fff4fc;
 }
 
+#computer-avatar {
+  width: 25%;
+  justify-items: center;
+}
+
+#player-avatar {
+  width: 25%;
+  justify-items: center;
+}
+
 #replay-button {
-  visibility: hidden;
-  margin-bottom: 8vmin;
-  margin-top: -6vmin;
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
 }
 
 #replay-button button {
@@ -154,23 +190,10 @@ h2 {
   color: #6c4076;
   font-size: 2vmin;
   padding: 1vmin 5vmin;
-  visibility: inherit;
 }
 
 #replay-button button:hover {
   background-color: #fff4fc;
-}
-
-.disabled {
-  pointer-events: none;
-}
-
-.wrapper {
-  cursor: none;
-}
-
-#paw-wrapper {
-  height: 40vmin;
 }
 
 .modal {
@@ -227,4 +250,23 @@ h2 {
 #b4:hover {
   stroke: #fff6fb;
   stroke-width: 1;
+}
+
+#hint1,
+#hint2,
+#hint3,
+#hint4 {
+  width: 2vmin;
+  height: 2vmin;
+  border: .5vmin solid black;
+  background-color: black;
+  border-radius: 50%;
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+.wrapper {
+  cursor: none;
 }
