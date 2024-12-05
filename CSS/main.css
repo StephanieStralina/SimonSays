@@ -44,8 +44,8 @@ header img {
   }
 }
 
-#flex-display, 
-#bottom-row, 
+#flex-display,
+#bottom-row,
 #game-display {
   display: flex;
   width: 100%;
@@ -53,7 +53,6 @@ header img {
 
 
 #flex-display {
-  height: 70%;
   flex-direction: row;
   margin-top: -5vmin;
   justify-content: space-around;
@@ -72,7 +71,7 @@ h2 {
   height: 20%;
 }
 
-#board, 
+#board,
 #control-buttons {
   display: flex;
   flex-direction: column;
@@ -81,6 +80,10 @@ h2 {
   height: 100%;
   animation-name: fade-in;
   animation-duration: 1.5s;
+}
+
+#board {
+  height: 70vh;
 }
 
 @keyframes fade-in {
@@ -96,6 +99,7 @@ h2 {
 #turn-elements,
 #high-score,
 #hints {
+  height: 10vmin;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -118,6 +122,10 @@ h2 {
 #high-score h2,
 #hints h2 {
   font-size: 2.5vmin;
+}
+
+#player-high-score {
+  color: #50014c;
 }
 
 #hint-rounds,
@@ -159,7 +167,7 @@ h2 {
   color: #6c4076;
 }
 
-#control-buttons button:hover, 
+#control-buttons button:hover,
 #hint-button button:hover,
 #replay-button button:hover {
   background-color: #fff4fc;
@@ -182,8 +190,8 @@ h2 {
   border: none;
   height: 50%;
   border-radius: 7px;
-  background-color: #d8f3ff;
-  color: #7893b3;
+  background-color: #ffe7ff;
+  color: #9B5697;
   font-size: 2.5vmin;
   padding: 1vmin 5vmin;
 }
@@ -192,6 +200,59 @@ h2 {
 #player-avatar {
   width: 25%;
   justify-items: center;
+}
+
+#computer-avatar img,
+#player-avatar img {
+  max-width: 25vmin;
+  max-height: 20vmin;
+  opacity: 0;
+}
+
+#player-avatar img {
+  float: right;
+}
+
+.swirl-in {
+  animation: swirl-in .5s ease-out forwards;
+}
+
+.swirl-out {
+  animation: swirl-out .5s ease-out forwards;
+}
+
+@keyframes swirl-in {
+  0% {
+    transform: rotate(-360deg) scale(0);
+    opacity: 0;
+  }
+
+  50% {
+    transform: rotate(-180deg) scale(.3);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: rotate(0deg) scale(.8);
+    opacity: 1;
+  }
+}
+
+@keyframes swirl-out {
+  0% {
+    transform: rotate(0deg) scale(.8);
+    opacity: 1;
+  }
+
+  50% {
+    transform: rotate(180deg) scale(.3);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: rotate(360deg) scale(0);
+    opacity: 0;
+  }
 }
 
 .modal {
@@ -259,8 +320,7 @@ h2 {
 #hint4 {
   width: 2vmin;
   height: 2vmin;
-  border: .5vmin solid black;
-  background-color: black;
+  background-color: #50014c;
   border-radius: 50%;
 }
 
