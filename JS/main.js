@@ -20,9 +20,10 @@ let hints;
 let hintUsed;
 
 /*----- cached elements  -----*/
+const body = document.querySelector('body');
+const board = document.getElementById('board');
 const messageEl = document.getElementById('turn-display');
 const startButton = document.getElementById('start-game');
-const howButton = document.getElementById('how-to-play');
 const controlButtons = document.getElementById('control-buttons');
 const replayButton = document.getElementById('replay-button');
 const roundsDisplay = document.getElementById('rounds');
@@ -30,22 +31,24 @@ const modal = document.getElementById("how-to-play-modal");
 const howToBtn = document.getElementById("how-to-play");
 const exitBtn = document.querySelector(".close");
 const highScore = document.getElementById('player-high-score');
+const hintsDisp = document.getElementById('hints');
+const highScoreDisp = document.getElementById('high-score');
+const hintBtn = document.getElementById('hint-button');
 
 /*----- event listeners -----*/
 startButton.addEventListener('click', init);
 replayButton.addEventListener('click', init);
 document.getElementById('hintBtn').addEventListener('click', handleHint);
-document.getElementById('board').addEventListener('click', () => {
+board.addEventListener('click', () => {
     hintUsed = false;
 });
+
 function removeKeyListener() {
     document.removeEventListener('keydown', typeSelect);
 }
 function addKeyListener() {
     document.addEventListener('keydown', typeSelect);
 }
-
-/*-----modal events -----*/
 
 howToBtn.onclick = function () {
     modal.style.display = "block";
@@ -63,33 +66,41 @@ window.onclick = function (event) {
 
 /*----- functions -----*/
 function init() {
-    document.querySelector('#board').addEventListener('click', handlePlayerMove);
-    controlButtons.style.display = 'none';
-    replayButton.style.display = 'none';
-    document.getElementById('hints').style.display = 'flex';
-    document.getElementById('high-score').style.display = 'flex';
-    document.getElementById('hint-button').style.display = 'flex';
-    document.getElementById('board').classList.add('disabled');
-    document.getElementById('body').classList.add('wrapper');
-    updateHighScore();
+    resetState();
+    gameControls();
+    setTimeout(() => {
+        render();
+    }, 600);
+}
+
+function resetState() {
     computerArr = [];
     playerArr = [];
     rounds = 0;
     hints = 3;
     hintUsed = false;
     turn = 'computer';
-    setTimeout(() => {
-        render();
-    }, 600);
+}
+
+function gameControls() {
+    board.addEventListener('click', handlePlayerMove);
+    controlButtons.style.display = 'none';
+    replayButton.style.display = 'none';
+    hintsDisp.style.display = 'flex';
+    highScoreDisp.style.display = 'flex';
+    hintBtn.style.display = 'flex';
+    board.classList.add('disabled');
+    body.classList.add('wrapper');
+    updateHighScore();
 }
 
 function render() {
     rounds++;
+    roundsDisplay.innerText = `Round ${rounds}`;
     renderMessage();
     while (computerArr.length < 2) {
         renderComputerMoves();
     }
-    roundsDisplay.innerText = `Round ${rounds}`;
     renderComputerMoves();
     renderCompSound();
 }
@@ -110,8 +121,8 @@ async function renderCompSound() {
         i++;
     }
     turn = 'player';
-    document.getElementById('board').classList.remove('disabled');
-    document.getElementById('body').classList.remove('wrapper');
+    board.classList.remove('disabled');
+    body.classList.remove('wrapper');
     renderMessage();
 }
 
@@ -174,8 +185,8 @@ function handlePlayerMove(evt) {
         compareArrays();
         if (compareArrays() === true && playerArr.length === computerArr.length) {
             removeKeyListener();
-            document.getElementById('board').classList.add('disabled');
-            document.getElementById('body').classList.add('wrapper');
+            board.classList.add('disabled');
+            body.classList.add('wrapper');
             playerArr = [];
             successSound.play();
             messageEl.innerHTML = `<span style = "color: #ffbfa9">GREAT JOB!</span>`;
@@ -217,8 +228,8 @@ function renderMessage() {
                 messageEl.innerHTML = `<span style="color: #1f2c39">Try again next time!</span>`;
                 roundsDisplay.innerHTML = `<span style="color: #1f2c39">You lasted <span style="color: #fff4fc">${rounds}</span> rounds</span>`;
             }  
-            document.getElementById('hint-button').style.display= 'none';
-            document.querySelector('#board').removeEventListener('click', handlePlayerMove);
+            hintBtn.style.display= 'none';
+            board.removeEventListener('click', handlePlayerMove);
             removeKeyListener();
             replayButton.style.display = 'flex';
     }
@@ -235,17 +246,16 @@ function updateHighScore() {
 }
 
 function handleHint() {
-    //Guard for repeatedly clicking on hints
-    if (hintUsed) {
-        return;
-    }
+    //Guard for repeatedly clicking on hints or while computers turn
+    if (hintUsed) return;
+    if (turn === 'computer') return;
     let nextValue = computerArr[playerArr.length]; 
     let hintEl = document.getElementById(nextValue);
     hintEl.style.fill = '#c2fcf3';
     document.getElementById(`hint${hints}`).remove();
     hints--;
-    if (hints === 0) {
-        document.getElementById('hint-button').style.display = 'none';  
-    }
     hintUsed = true;
+    if (hints === 0) {
+        hintBtn.style.display = 'none';  
+    }
 }
