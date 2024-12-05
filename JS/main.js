@@ -11,6 +11,9 @@ const victorySound = new Audio('https://dl.dropbox.com/scl/fi/i9hok3gh3t8hg90dyh
 
 const gameButtons = [1, 2, 3, 4,];
 
+const playerChar = document.getElementById('bee-img');
+const computerChar = document.getElementById('pup-img');
+
 /*----- state variables -----*/
 let rounds;
 let computerArr;
@@ -84,6 +87,9 @@ function resetState() {
 
 function gameControls() {
     board.addEventListener('click', handlePlayerMove);
+    document.getElementById('hint1').style.opacity = '1';
+    document.getElementById('hint2').style.opacity = '1';
+    document.getElementById('hint3').style.opacity = '1';
     controlButtons.style.display = 'none';
     replayButton.style.display = 'none';
     hintsDisp.style.display = 'flex';
@@ -189,7 +195,7 @@ function handlePlayerMove(evt) {
             body.classList.add('wrapper');
             playerArr = [];
             successSound.play();
-            messageEl.innerHTML = `<span style = "color: #ffbfa9">GREAT JOB!</span>`;
+            messageEl.innerHTML = `<span style = "color: #50014c">GREAT JOB!</span>`;
             setTimeout(() => {
                 turn = 'computer';
                 render();
@@ -213,25 +219,28 @@ function compareArrays() {
 function renderMessage() {
     if (turn === 'computer') {
         messageEl.innerText = `It's PuppyCat's Turn!`;
+        animateChar();
     } else if (turn === 'player') {
         addKeyListener();
+        animateChar();
         messageEl.innerHTML = `<span style="color: #008b9b">It's Your Turn!</span>`;
     } else {
-            if (rounds > highScore.innerHTML) {
-                victorySound.play();
-                updateHighScore();
-                messageEl.innerHTML = `<span style="color: #1f2c39">Great job!</span>`;
-                roundsDisplay.innerHTML = `<span style="color: #ffbfa9">New High Score!</span>`;
-            } else {
-                loseSound.play();
-                updateHighScore();
-                messageEl.innerHTML = `<span style="color: #1f2c39">Try again next time!</span>`;
-                roundsDisplay.innerHTML = `<span style="color: #1f2c39">You lasted <span style="color: #fff4fc">${rounds}</span> rounds</span>`;
-            }  
-            hintBtn.style.display= 'none';
-            board.removeEventListener('click', handlePlayerMove);
-            removeKeyListener();
-            replayButton.style.display = 'flex';
+        animateChar();
+        if (rounds > highScore.innerHTML) {
+            victorySound.play();
+            updateHighScore();
+            messageEl.innerHTML = `<span style="color: #1f2c39">Great job!</span>`;
+            roundsDisplay.innerHTML = `<span style="color: #ffbfa9">New High Score!</span>`;
+        } else {
+            loseSound.play();
+            updateHighScore();
+            messageEl.innerHTML = `<span style="color: #1f2c39">Try again next time!</span>`;
+            roundsDisplay.innerHTML = `<span style="color: #1f2c39">You lasted <span style="color: #fff4fc">${rounds}</span> rounds</span>`;
+        }
+        hintBtn.style.display = 'none';
+        board.removeEventListener('click', handlePlayerMove);
+        removeKeyListener();
+        replayButton.style.display = 'flex';
     }
 }
 
@@ -249,13 +258,34 @@ function handleHint() {
     //Guard for repeatedly clicking on hints or while computers turn
     if (hintUsed) return;
     if (turn === 'computer') return;
-    let nextValue = computerArr[playerArr.length]; 
+    let nextValue = computerArr[playerArr.length];
     let hintEl = document.getElementById(nextValue);
     hintEl.style.fill = '#c2fcf3';
-    document.getElementById(`hint${hints}`).remove();
+    document.getElementById(`hint${hints}`).style.opacity='0';
     hints--;
     hintUsed = true;
     if (hints === 0) {
-        hintBtn.style.display = 'none';  
+        hintBtn.style.display = 'none'; 
+    }
+}
+
+function animateChar() {
+    //guard for previously applied classes in other rounds
+    computerChar.classList.remove('swirl-in', 'swirl-out');
+    playerChar.classList.remove('swirl-in', 'swirl-out');
+    if (rounds === 1 && turn === 'computer') {
+        computerChar.classList.add('swirl-in');
+    } else if (turn === 'computer') {
+        playerChar.classList.add('swirl-out');
+        playerChar.classList.remove('swirl-in');
+        computerChar.classList.add('swirl-in');
+    } else if (turn === 'player') {
+        playerChar.classList.remove('swirl-out')
+        computerChar.classList.add('swirl-out');
+        computerChar.classList.remove('swirl-in');
+        playerChar.classList.add('swirl-in');
+    } else {
+        computerChar.style.opacity = '0';
+        playerChar.style.opacity = '0';
     }
 }

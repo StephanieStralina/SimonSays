@@ -35,7 +35,7 @@ PuppyCat can kind of be a jerk, so there is no true "win" scenario. However, a p
 
 # Attribution
 
-All paw print sounds are sounds made by PuppyCat and are property of the show *Bee and PuppyCat*. The background art was created by me but is meant to pay homage to a background present in the show. Win & lose condition sounds are video game sound effects from Epidemic Sounds.
+All paw print sounds are sounds made by PuppyCat and are property of the show *Bee and PuppyCat*. The background vector art was created by me but is meant to pay homage to a background present in the show. Bee & Puppycat images also belong to the show. Win & lose condition sounds are video game sound effects from Epidemic Sounds.
 
 
 # Next Steps
