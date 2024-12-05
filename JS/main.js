@@ -59,8 +59,8 @@ window.onclick = function (event) {
 /*----- functions -----*/
 function init() {
     document.querySelector('#board').addEventListener('click', handlePlayerMove);
-    controlButtons.style.visibility = 'hidden';
-    replayButton.style.visibility = 'hidden';
+    controlButtons.style.display = 'none';
+    replayButton.style.display = 'none';
     document.getElementById('hints').style.display = 'flex';
     document.getElementById('high-score').style.display = 'flex';
     document.getElementById('board').classList.add('disabled');
@@ -212,7 +212,7 @@ function renderMessage() {
             }  
             document.querySelector('#board').removeEventListener('click', handlePlayerMove);
             removeKeyListener();
-            replayButton.style.visibility = 'visible';
+            replayButton.style.display = 'flex';
     }
 }
 
