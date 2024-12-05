@@ -17,6 +17,7 @@ let computerArr;
 let playerArr;
 let turn;
 let hints;
+let hintUsed;
 
 /*----- cached elements  -----*/
 const messageEl = document.getElementById('turn-display');
@@ -33,6 +34,10 @@ const highScore = document.getElementById('player-high-score');
 /*----- event listeners -----*/
 startButton.addEventListener('click', init);
 replayButton.addEventListener('click', init);
+document.getElementById('hintBtn').addEventListener('click', handleHint);
+document.getElementById('board').addEventListener('click', () => {
+    hintUsed = false;
+});
 function removeKeyListener() {
     document.removeEventListener('keydown', typeSelect);
 }
@@ -63,6 +68,7 @@ function init() {
     replayButton.style.display = 'none';
     document.getElementById('hints').style.display = 'flex';
     document.getElementById('high-score').style.display = 'flex';
+    document.getElementById('hint-button').style.display = 'flex';
     document.getElementById('board').classList.add('disabled');
     document.getElementById('body').classList.add('wrapper');
     updateHighScore();
@@ -70,6 +76,7 @@ function init() {
     playerArr = [];
     rounds = 0;
     hints = 3;
+    hintUsed = false;
     turn = 'computer';
     setTimeout(() => {
         render();
@@ -210,6 +217,7 @@ function renderMessage() {
                 messageEl.innerHTML = `<span style="color: #1f2c39">Try again next time!</span>`;
                 roundsDisplay.innerHTML = `<span style="color: #1f2c39">You lasted <span style="color: #fff4fc">${rounds}</span> rounds</span>`;
             }  
+            document.getElementById('hint-button').style.display= 'none';
             document.querySelector('#board').removeEventListener('click', handlePlayerMove);
             removeKeyListener();
             replayButton.style.display = 'flex';
@@ -224,4 +232,20 @@ function updateHighScore() {
     } else {
         highScore.innerHTML = `${currentHighScore}`;
     }
+}
+
+function handleHint() {
+    //Guard for repeatedly clicking on hints
+    if (hintUsed) {
+        return;
+    }
+    let nextValue = computerArr[playerArr.length]; 
+    let hintEl = document.getElementById(nextValue);
+    hintEl.style.fill = '#c2fcf3';
+    document.getElementById(`hint${hints}`).remove();
+    hints--;
+    if (hints === 0) {
+        document.getElementById('hint-button').style.display = 'none';  
+    }
+    hintUsed = true;
 }
