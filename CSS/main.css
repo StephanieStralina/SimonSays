@@ -119,10 +119,10 @@ h2 {
   font-size: 2vmin;
 }
 
-#high-score h2,
+/* #high-score h2,
 #hints h2 {
   font-size: 2.5vmin;
-}
+} */
 
 #player-high-score {
   color: #50014c;
@@ -182,7 +182,8 @@ h2 {
 }
 
 #hint-button button {
-  background-color: #f7e4e2;
+  background-color: #e8edee;
+  color: #005f6a;
   border: none;
 }
 
@@ -320,6 +321,7 @@ h2 {
 #hint4 {
   width: 2vmin;
   height: 2vmin;
+  border: 2px solid #50014c;
   background-color: #50014c;
   border-radius: 50%;
 }
@@ -331,3 +333,122 @@ h2 {
 .wrapper {
   cursor: none;
 }
+
+@media screen and (max-width: 600px) {
+  header {
+    animation: none;
+  }
+
+  header img {
+    height: 50vmin;
+  }
+
+  #board,
+  #control-buttons {
+    animation: none;
+  }
+
+  #flex-display,
+  #bottom-row {
+    display: flex;
+    width: 100%;
+  }
+  
+  #flex-display {
+    flex-direction: column;
+    margin-top: -20vmin;
+    align-items: center;
+    justify-content: start;
+    
+  }
+  
+  #high-score,
+  #hints,
+  #turn-elements {
+    width: 100%;
+    margin-bottom: 10vmin;
+    gap: 8vmin;
+  }
+
+   #turn-elements {
+    gap: 5vmin;
+    order: 3;
+  } 
+
+  h2 {
+    font-size: 6vmin;
+  }
+  
+  h1 {
+    font-size: 6vmin;
+  }
+
+  p {
+    font-size: 6vmin;
+  }
+
+  #high-score h2, #hints h2 {
+    font-size: 6vmin;
+  }
+
+  #hint1, #hint2, #hint3, #hint4 {
+    width: 6vmin;
+    height: 6vmin;
+}
+
+#control-buttons,
+#hint-button,
+#replay-button {
+  flex-direction: column;
+  width: 80%;
+  gap: 2.5vmin;
+}
+
+#game-display {
+  justify-content: center;
+}
+
+#control-buttons button,
+#hint-button button,
+#replay-button button {
+  width: 100%;
+  height: 15vmin;
+}
+
+#hint-button,
+#replay-button {
+  justify-content: start;
+}
+
+.modal-content {
+  background-color: #fff4fc;
+  margin: 20vmin 7vmin;
+  padding: 1vmin 8vmin;
+  width: 40vh;
+  height: 80vh;
+}
+
+.modal-content h1 {
+  font-size: 8vmin;
+}
+
+.modal-content p {
+  font-size: 5vmin;
+  margin-top: 4vmin;
+  height: 40%;
+}
+
+#paw-number {
+  height: 40vmin;
+  margin-top: 16vmin;
+}
+
+.swirl-in {
+  animation: none;
+}
+
+.swirl-out {
+  animation: none;
+}
+
+} 

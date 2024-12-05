@@ -87,6 +87,9 @@ function resetState() {
 
 function gameControls() {
     board.addEventListener('click', handlePlayerMove);
+    document.getElementById('hint1').style.opacity = '1';
+    document.getElementById('hint2').style.opacity = '1';
+    document.getElementById('hint3').style.opacity = '1';
     controlButtons.style.display = 'none';
     replayButton.style.display = 'none';
     hintsDisp.style.display = 'flex';
@@ -245,7 +248,7 @@ function updateHighScore() {
     const currentHighScore = localStorage.getItem('highScore') || 0;
     if (rounds > currentHighScore) {
         localStorage.setItem('highScore', rounds);
-        highScore.innerHTML = `${rounds} rounds`;
+        highScore.innerHTML = `${rounds}`;
     } else {
         highScore.innerHTML = `${currentHighScore}`;
     }
@@ -258,11 +261,11 @@ function handleHint() {
     let nextValue = computerArr[playerArr.length];
     let hintEl = document.getElementById(nextValue);
     hintEl.style.fill = '#c2fcf3';
-    document.getElementById(`hint${hints}`).remove();
+    document.getElementById(`hint${hints}`).style.opacity='0';
     hints--;
     hintUsed = true;
     if (hints === 0) {
-        hintBtn.style.display = 'none'; ß
+        hintBtn.style.display = 'none'; 
     }
 }
 
