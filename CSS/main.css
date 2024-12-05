@@ -124,10 +124,6 @@ h2 {
   font-size: 2.5vmin;
 } */
 
-#player-high-score {
-  color: #50014c;
-}
-
 #hint-rounds,
 #game-display,
 #bottom-row {
@@ -254,6 +250,19 @@ h2 {
     transform: rotate(360deg) scale(0);
     opacity: 0;
   }
+}
+
+@keyframes button-click {
+  0% {
+    transform: scale(.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+#hint-button:active {
+  animation: button-click 1s;
 }
 
 .modal {
@@ -385,6 +394,11 @@ h2 {
 
   p {
     font-size: 6vmin;
+    color: #50014c;
+  }
+
+  #flex-display p {
+    color: #50014c;
   }
 
   #high-score h2, #hints h2 {

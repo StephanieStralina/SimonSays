@@ -261,11 +261,11 @@ function handleHint() {
     let nextValue = computerArr[playerArr.length];
     let hintEl = document.getElementById(nextValue);
     hintEl.style.fill = '#c2fcf3';
-    document.getElementById(`hint${hints}`).style.opacity='0';
+    document.getElementById(`hint${hints}`).style.opacity = '0';
     hints--;
     hintUsed = true;
     if (hints === 0) {
-        hintBtn.style.display = 'none'; 
+        hintBtn.style.display = 'none';
     }
 }
 
@@ -285,7 +285,7 @@ function animateChar() {
         computerChar.classList.remove('swirl-in');
         playerChar.classList.add('swirl-in');
     } else {
-        computerChar.style.opacity = '0';
-        playerChar.style.opacity = '0';
+        computerChar.style.opacity = '1';
+        playerChar.style.opacity = '1';
     }
 }
