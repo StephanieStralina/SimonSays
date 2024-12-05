@@ -40,6 +40,8 @@ All paw print sounds are sounds made by PuppyCat and are property of the show *B
 
 # Next Steps
 
-- Implement hints (3 max)
-- Implement high score
+- ~~Implement hints (3 max)~~
+- ~~Add custom favicon~~
+- ~~Implement high score~~
+- Add character illustrations depending on player/computer turn
 - Create multiple computer character profiles and backgrounds to choose from
