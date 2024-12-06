@@ -273,6 +273,11 @@ function animateChar() {
     //guard for previously applied classes in other rounds
     computerChar.classList.remove('swirl-in', 'swirl-out');
     playerChar.classList.remove('swirl-in', 'swirl-out');
+    //remove animation sequence for small screens
+    if (window.matchMedia("(max-width: 600px)").matches) {
+        computerChar.style.opacity = '1';
+        playerChar.style.opacity = '1';
+    } else {
     if (rounds === 1 && turn === 'computer') {
         computerChar.classList.add('swirl-in');
     } else if (turn === 'computer') {
@@ -288,4 +293,5 @@ function animateChar() {
         computerChar.style.opacity = '1';
         playerChar.style.opacity = '1';
     }
+}
 }
