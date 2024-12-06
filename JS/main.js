@@ -278,20 +278,20 @@ function animateChar() {
         computerChar.style.opacity = '1';
         playerChar.style.opacity = '1';
     } else {
-    if (rounds === 1 && turn === 'computer') {
-        computerChar.classList.add('swirl-in');
-    } else if (turn === 'computer') {
-        playerChar.classList.add('swirl-out');
-        playerChar.classList.remove('swirl-in');
-        computerChar.classList.add('swirl-in');
-    } else if (turn === 'player') {
-        playerChar.classList.remove('swirl-out')
-        computerChar.classList.add('swirl-out');
-        computerChar.classList.remove('swirl-in');
-        playerChar.classList.add('swirl-in');
-    } else {
-        computerChar.style.opacity = '1';
-        playerChar.style.opacity = '1';
+        if (rounds === 1 && turn === 'computer') {
+            computerChar.classList.add('swirl-in');
+        } else if (turn === 'computer') {
+            playerChar.classList.add('swirl-out');
+            playerChar.classList.remove('swirl-in');
+            computerChar.classList.add('swirl-in');
+        } else if (turn === 'player') {
+            playerChar.classList.remove('swirl-out')
+            computerChar.classList.add('swirl-out');
+            computerChar.classList.remove('swirl-in');
+            playerChar.classList.add('swirl-in');
+        } else {
+            computerChar.style.opacity = '1';
+            playerChar.style.opacity = '1';
+        }
     }
-}
 }
