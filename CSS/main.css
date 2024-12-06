@@ -349,7 +349,7 @@ h2 {
   }
 
   header img {
-    height: 50vmin;
+    height: 30vmin;
   }
 
   #board,
@@ -365,7 +365,7 @@ h2 {
   
   #flex-display {
     flex-direction: column;
-    margin-top: -20vmin;
+    margin-top: -5vmin;
     align-items: center;
     justify-content: start;
     
@@ -375,25 +375,25 @@ h2 {
   #hints,
   #turn-elements {
     width: 100%;
-    margin-bottom: 10vmin;
-    gap: 8vmin;
+    margin-bottom: 4vmin;
+    gap: 4vmin;
   }
 
    #turn-elements {
-    gap: 5vmin;
+    gap: 4vmin;
     order: 3;
   } 
 
   h2 {
-    font-size: 6vmin;
+    font-size: 4vmin;
   }
   
   h1 {
-    font-size: 6vmin;
+    font-size: 4vmin;
   }
 
   p {
-    font-size: 6vmin;
+    font-size: 4vmin;
     color: #50014c;
   }
 
@@ -402,12 +402,12 @@ h2 {
   }
 
   #high-score h2, #hints h2 {
-    font-size: 6vmin;
+    font-size: 4vmin;
   }
 
   #hint1, #hint2, #hint3, #hint4 {
-    width: 6vmin;
-    height: 6vmin;
+    width: 4vmin;
+    height: 4vmin;
 }
 
 #control-buttons,
@@ -416,6 +416,8 @@ h2 {
   flex-direction: column;
   width: 80%;
   gap: 2.5vmin;
+  height: 15vmin;
+  margin-top: 2vmin;
 }
 
 #game-display {
@@ -459,10 +461,12 @@ h2 {
 
 .swirl-in {
   animation: none;
+
 }
 
 .swirl-out {
   animation: none;
+  opacity: 1;
 }
 
 } 
