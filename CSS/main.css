@@ -438,7 +438,7 @@ h2 {
 
 .modal-content {
   background-color: #fff4fc;
-  margin: 20vmin 7vmin;
+  margin: 20vmin auto;
   padding: 1vmin 8vmin;
   width: 40vh;
   height: 80vh;
@@ -456,7 +456,8 @@ h2 {
 
 #paw-number {
   height: 40vmin;
-  margin-top: 16vmin;
+  margin-top: 20vmin;
+  padding-top: 5vmin;
 }
 
 .swirl-in {
