@@ -268,6 +268,8 @@ h2 {
 .modal {
   display: none;
   position: fixed;
+  justify-content: center;
+  align-items: center;
   z-index: 1;
   left: 0;
   top: 0;
@@ -278,12 +280,13 @@ h2 {
 
 .modal-content {
   background-color: #fff4fc;
-  margin: 20vmin auto;
   padding: 1vmin 8vmin;
   border-radius: 15px;
   width: 70vmin;
-  height: 60vmin;
+  max-width: 90%;
+  max-height: 90%;
   text-align: center;
+  overflow-y: auto;
 }
 
 .modal-content h1 {
@@ -299,7 +302,13 @@ h2 {
 }
 
 #paw-number {
-  height: 20vmin;
+  height: auto;
+  max-height: 25vmin;
+  width: auto;
+  margin-top: 8vmin;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .close {
@@ -438,7 +447,7 @@ h2 {
 
 .modal-content {
   background-color: #fff4fc;
-  margin: 20vmin auto;
+  margin: 20vmin 7vmin;
   padding: 1vmin 8vmin;
   width: 40vh;
   height: 80vh;
@@ -454,11 +463,10 @@ h2 {
   height: 40%;
 }
 
-#paw-number {
+/* #paw-number {
   height: 40vmin;
-  margin-top: 20vmin;
-  padding-top: 5vmin;
-}
+  margin-top: 16vmin;
+} */
 
 .swirl-in {
   animation: none;
