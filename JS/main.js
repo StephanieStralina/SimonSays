@@ -54,7 +54,7 @@ function addKeyListener() {
 }
 
 howToBtn.onclick = function () {
-    modal.style.display = "block";
+    modal.style.display = "flex";
 }
 
 exitBtn.onclick = function () {
